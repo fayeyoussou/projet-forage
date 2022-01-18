@@ -25,8 +25,8 @@ class Habitant {
     private $telephone;
     /**
      * One Village has chef.
-     * @OneToOne(targetEntity="Village")
-     * @JoinColumn(name="village", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="Village")
+     * @ORM\JoinColumn(name="village", referencedColumnName="id")
      */
     private $village;
     /**
@@ -34,9 +34,13 @@ class Habitant {
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
+    /**
+     * One habitant has many abonnement. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="Abonnement", mappedBy="habitant")
+     */
     private $abonnements;
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean",options={"default": 0})
     */
     private $etat;
     

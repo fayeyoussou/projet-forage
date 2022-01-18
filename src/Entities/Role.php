@@ -12,6 +12,5 @@ class Role {
     */
     private $id;
     private $nom;
-    // private $etat;
-    
+        
 }

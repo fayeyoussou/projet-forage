@@ -22,7 +22,7 @@ $conn = array(
     'host' => '127.0.0.1',
     'user' => 'root',
     'password' => '',
-    'dbname' =>'veille-03',
+    'dbname' =>'sen_forage_db',
 );
 
 // obtaining the entity manager

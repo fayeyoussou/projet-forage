@@ -16,18 +16,27 @@ class Abonnement {
     */
     private $dateAbo;
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="text")
     */
     private $description;
-    private $client;
     /**
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
+    /**
+     * Many abonnement have one Habitant. This is the owning side.
+     * @ORM\ManyToOne(targetEntity="Habitant", inversedBy="abonnements")
+     * @ORM\JoinColumn(name="habitant_id", referencedColumnName="id")
+     */
+    private $habitant;
+    /**
+     * One Customer has One Cart.
+     * @ORM\OneToOne(targetEntity="Compteur", mappedBy="abonnement")
+     */
     private $compteur;
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean",options={"default": 0})
     */
     private $etat;
 }

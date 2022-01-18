@@ -17,8 +17,8 @@ class Village {
     private $nom;
     /**
      * One Village has chef.
-     * @OneToOne(targetEntity="Habitant")
-     * @JoinColumn(name="chefVillage", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="Habitant")
+     * @ORM\JoinColumn(name="chefVillage", referencedColumnName="id")
      */
     private $chefVillage;
     /**
@@ -27,7 +27,7 @@ class Village {
      */
     private $user;
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean",options={"default": 0})
     */
     private $etat;
 

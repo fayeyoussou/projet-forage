@@ -11,8 +11,18 @@ class Reglement {
      * @ORM\GeneratedValue
     */
     private $id;
+    /**
+     * @ORM\Column(type="date")
+    */
     private $dateReglement;
+    /**
+     * @ORM\Column(type="integer")
+    */
     private $montantReglement;
+    /**
+     * One product has many features. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="Facture", mappedBy="reglement")
+     */
     private $factures;
     /**
      * @ORM\ManyToOne(targetEntity="User")
@@ -20,7 +30,7 @@ class Reglement {
      */
     private $user;
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean",options={"default": 0})
     */
     private $etat;
 
