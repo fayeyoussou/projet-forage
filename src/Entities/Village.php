@@ -30,5 +30,43 @@ class Village {
      * @ORM\Column(type="boolean",options={"default": 0})
     */
     private $etat;
+    public function __construct () {
+
+    }
+    public function getId () {
+        return $this->id;
+    }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+    public function getChefVillage () {
+        return $this->chefVillage;
+    }
+    public function setChefVillage($chefVillage)
+    {
+        $this->chefVillage = $chefVillage;
+    }
+    public function getNom () {
+        return $this->nom;
+    }
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+    }
+    public function getUser () {
+        return $this->user;
+    }
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+    public function getEtat () {
+        return $this->etat;
+    }
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+    }
 
 }

@@ -1,5 +1,7 @@
 <?php
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * @ORM\Entity 
  * @ORM\Table(name="facture")
@@ -41,6 +43,56 @@ class Facture {
      * @ORM\JoinColumn(name="consommation_id", referencedColumnName="id")
      */
     private $consommations;
-    // private $reglement;
-    
+    public function __construct () {
+        $this->consommations = new ArrayCollection ();
+    }
+    public function getId () {
+        return $this->id;
+    }
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+    public function getEtat () {
+        return $this->etat;
+    }
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+    }
+    public function getUser () {
+        return $this->user;
+    }
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+    public function getMontantFacture () {
+        return $this->montantFacture;
+    }
+    public function setMontantFacture($montantFacture)
+    {
+        $this->montantFacture = $montantFacture;
+    }
+    public function getDateFacture () {
+        return $this->dateFacture;
+    }
+    public function setDateFacture($dateFacture)
+    {
+        $this->dateFacture = $dateFacture;
+    }
+    public function getReglement () {
+        return $this->reglement;
+    }
+    public function setReglement($reglement)
+    {
+        $this->reglement = $reglement;
+    }
+    public function getConsommations () {
+        return $this->consommations;
+    }
+    public function setConsommations($consommations)
+    {
+        $this->consommations = $consommations;
+    }
 }
