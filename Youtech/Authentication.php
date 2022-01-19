@@ -7,7 +7,7 @@ class Authentication
     private $users;
     private $usernameColumn;
     private $passwordColumn;
-    public function __construct(DatabaseTable $users,string $usernameColumn, string $passwordColumn)
+    public function __construct($users,string $usernameColumn, string $passwordColumn)
     {
         session_start();
         $this->users = $users;
