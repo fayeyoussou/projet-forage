@@ -36,7 +36,7 @@ class Abonnement {
      */
     private $compteur;
     /**
-     * @ORM\Column(type="boolean",options={"default": 0})
+     * @ORM\Column(type="boolean",options={"default": 1})
     */
     private $etat;
     public function __construct () {

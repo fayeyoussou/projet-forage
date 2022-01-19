@@ -11,6 +11,9 @@ class Role {
      * @ORM\GeneratedValue
     */
     private $id;
+    /**
+     * @ORM\Column(type="string",length=10)
+    */
     private $nom;
     public function __construct () {
 

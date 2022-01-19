@@ -29,7 +29,7 @@ class Facture {
      */
     private $reglement;
     /**
-     * @ORM\Column(type="boolean",options={"default": 0})
+     * @ORM\Column(type="boolean",options={"default": 1})
     */
     private $etat;
     /**
