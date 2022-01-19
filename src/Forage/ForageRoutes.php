@@ -9,13 +9,25 @@ class ForageRoutes implements \Youtech\Routes {
     }
     public function getRoutes(): array {
         $default = new \src\Forage\Controller\Forage();
+        $userController = new \src\Forage\Controller\User();
         $routes = [
 			'' => [
 				'GET' => [
 					'controller' => $default,
 					'action' => 'home'
 				]
-			]
+                ],
+            'login/signin' => 
+            [
+                'GET'=> [
+                    'controller' => $userController,
+                    'action'=> 'login'
+                ],
+                'POST'=> [
+                    'controller'=> $userController,
+                    'action' => 'submitlogin'
+                ]
+            ]
 		];
         return $routes;
     }

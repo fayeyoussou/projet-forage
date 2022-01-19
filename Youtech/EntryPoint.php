@@ -45,6 +45,7 @@ class EntryPoint
         } else {
             $output = $this->loadTemplate($page['template']);
         }
+        // echo $this->loadTemplate('header.html.php');
         echo $this->loadTemplate(
             'layout.html.php',
             [
