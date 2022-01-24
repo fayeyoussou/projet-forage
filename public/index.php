@@ -10,14 +10,15 @@
 try {
     // fonction autoload qui permet de charger automatiquement 
     // les classes sans faires d'includes
+    include __DIR__ . '/../bootstrap.php';
     include __DIR__ . '/../config/autoload.php';
     /**
      * Commence a charger a partir du premier / et se termine a 
      * la fin ou stoppe au premier point d'interrogation
      */
+
     $route = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
-    // $ret = new \src\Forage\ForageRoutes();
-    $entryPoint = new \Youtech\entryPoint($route,new \src\Forage\ForageRoutes(),$_SERVER['REQUEST_METHOD']);
+    $entryPoint = new \Youtech\entryPoint($route,new \src\Forage\ForageRoutes($entityManager),$_SERVER['REQUEST_METHOD']);
     $entryPoint->run();
 } catch (\Exception $e) {
     $title = 'An error has occurred';

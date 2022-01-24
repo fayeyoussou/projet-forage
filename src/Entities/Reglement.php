@@ -1,4 +1,6 @@
 <?php
+// namespace src\Entities;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 

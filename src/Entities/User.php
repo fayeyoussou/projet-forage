@@ -1,4 +1,6 @@
 <?php
+// namespace src\Entities;
+
 use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity 
@@ -87,5 +89,9 @@ class User {
     public function setRole($role)
     {
         $this->role = $role;
+    }
+    public function getUser()
+    {
+        return $this->email;
     }
 }

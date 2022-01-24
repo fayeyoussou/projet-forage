@@ -7,12 +7,14 @@ class EntryPoint
     private $route;
     private $method;
     private $routes;
+    private $em;
     public function __construct(string $route, \Youtech\Routes $routes, string $method)
     {
         $this->route = $route;
         $this->checkUrl();
         $this->routes = $routes;
         $this->method = $method;
+        // $this->em = $em;
     }
     private function checkUrl()
     {
@@ -32,11 +34,20 @@ class EntryPoint
     public function run()
     {
         $routes = $this->routes->getRoutes();
+        $authentication = $this->routes->getAuthentication();
+        // $isl= $authentication->isLoggedIn();
+        if (
+            isset($routes[$this->route]['login'])
+            && isset($routes[$this->route]['login']) &&
+            !$authentication->isLoggedIn()
+        ) {
+            header('location: /login/error');
+        }
         $controller = $routes[$this->route][$this->method]['controller'];
         $action = $routes[$this->route][$this->method]['action'];
         $page = $controller->$action();
         $title = $page['title'];
-
+        // $page['variables']['test']=$isl;
         if (isset($page['variables'])) {
             $output = $this->loadTemplate(
                 $page['template'],
@@ -45,13 +56,12 @@ class EntryPoint
         } else {
             $output = $this->loadTemplate($page['template']);
         }
-        // echo $this->loadTemplate('header.html.php');
+        
         echo $this->loadTemplate(
             'layout.html.php',
             [
-                // 'loggedIn' => $authentication->isLoggedIn(),
                 'output' => $output,
-                'title' => $title
+                'title' => $title,
             ]
         );
         // }

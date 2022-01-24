@@ -1,4 +1,5 @@
 <?php
+// namespace src\Entities;
 use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity 
@@ -31,10 +32,11 @@ class Abonnement {
      */
     private $habitant;
     /**
-     * One Customer has One Cart.
-     * @ORM\OneToOne(targetEntity="Compteur", mappedBy="abonnement")
+     * One Cart has One Customer.
+     * @ORM\OneToOne(targetEntity="Attribution", inversedBy="abonnement")
+     * @ORM\JoinColumn(name="attribution_id", referencedColumnName="id")
      */
-    private $compteur;
+    private $attribution;
     /**
      * @ORM\Column(type="boolean",options={"default": 1})
     */
@@ -84,11 +86,11 @@ class Abonnement {
     {
         $this->habitant = $habitant;
     }
-    public function getCompteur () {
-        return $this->compteur;
+    public function getAttribution () {
+        return $this->attribution;
     }
-    public function setCompteur($compteur)
+    public function setAttribution($attribution)
     {
-        $this->compteur = $compteur;
+        $this->attribution = $attribution;
     }
 }

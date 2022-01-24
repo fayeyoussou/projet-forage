@@ -29,9 +29,9 @@
 				
 					<ul class="nav pull-right">
 
-						<li><a href="/login/signup">
+						<!-- <li><a href="/login/signup">
 							Sign Up
-						</a></li>
+						</a></li> -->
 					</ul>
 				</div><!-- /.nav-collapse -->
 			</div>
@@ -39,12 +39,15 @@
 	</div><!-- /navbar -->
 
 	<?=$output?>
+	<?php
+	// var_dump($usert);
+	?>
 
 	<div class="footer">
 		<div class="container">
 			 
 
-			<b class="copyright">&copy; 2014 Edmin - EGrappler.com </b> All rights reserved.
+			<b class="copyright">&copy; 2022 PHP  / ORM / Youssoupha Faye</b> All rights reserved.
 		</div>
 	</div>
 	<script src="/resources/scripts/jquery-1.9.1.min.js" type="text/javascript"></script>

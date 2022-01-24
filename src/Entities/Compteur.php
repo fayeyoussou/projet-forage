@@ -1,4 +1,6 @@
 <?php
+// namespace src\Entities;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -28,10 +30,10 @@ class Compteur {
     private $user;
     /**
      * One Cart has One Customer.
-     * @ORM\OneToOne(targetEntity="Abonnement", inversedBy="compteur")
-     * @ORM\JoinColumn(name="abonnement_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="Attribution", inversedBy="compteur")
+     * @ORM\JoinColumn(name="attribution_id", referencedColumnName="id")
      */
-    private $abonnement;
+    private $attribution;
     /**
      * @ORM\Column(type="string" ,length="10")
     */
@@ -80,12 +82,12 @@ class Compteur {
     {
         $this->lastCumul = $lastCumul;
     }
-    public function getAbonnement () {
-        return $this->abonnement;
+    public function getAttribution () {
+        return $this->attribution;
     }
-    public function setAbonnement($abonnement)
+    public function setAttribution($attribution)
     {
-        $this->abonnement = $abonnement;
+        $this->attribution = $attribution;
     }
     public function getConsommations () {
         return $this->consommations;
