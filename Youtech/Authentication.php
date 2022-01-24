@@ -44,12 +44,10 @@ class Authentication
         return false; }
     }
     public function getUser() {
-        if ($this->isLoggedIn()) {
-        return $this->users->find($this->usernameColumn,
-        strtolower($_SESSION['username']))[0]; }
-            else {
-                return false;
-        } 
+        extract($this->getter());
+        if($this->isLoggedIn()){
+        return $this->em->getRepository($this->objectName)->$byOne($_SESSION['user']);
+        } else return NULL;
     }
     public function isLoggedIn()
     {
@@ -60,9 +58,6 @@ class Authentication
         extract($this->getter());
         $user=$this->em->getRepository($this->objectName)->$byOne($_SESSION['user']);
         $password=$user->$PasswordC();
-        // // $passwordColumn = $this->passwordColumn;
-        // // use brace to avoid error cause php read left to right and will try to find 
-        // // $user->$this it will be an error
         if (!empty($user) && $password === $_SESSION['password']) {
             return true;
         } else {

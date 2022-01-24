@@ -7,7 +7,7 @@ class EntryPoint
     private $route;
     private $method;
     private $routes;
-    private $em;
+    // private $em;
     public function __construct(string $route, \Youtech\Routes $routes, string $method)
     {
         $this->route = $route;
@@ -35,7 +35,6 @@ class EntryPoint
     {
         $routes = $this->routes->getRoutes();
         $authentication = $this->routes->getAuthentication();
-        // $isl= $authentication->isLoggedIn();
         if (
             isset($routes[$this->route]['login'])
             && isset($routes[$this->route]['login']) &&
@@ -47,7 +46,6 @@ class EntryPoint
         $action = $routes[$this->route][$this->method]['action'];
         $page = $controller->$action();
         $title = $page['title'];
-        // $page['variables']['test']=$isl;
         if (isset($page['variables'])) {
             $output = $this->loadTemplate(
                 $page['template'],
@@ -60,6 +58,7 @@ class EntryPoint
         echo $this->loadTemplate(
             'layout.html.php',
             [
+                'log'=> $authentication->getUser()?->getRole()->getId(),
                 'output' => $output,
                 'title' => $title,
             ]
