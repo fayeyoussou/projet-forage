@@ -8,31 +8,34 @@ class Authentication
     private $passwordColumnName;
     private $userColumnName;
     private $objectName;
-    public function __construct($em,$objectName,$userColumnName,$passwordColumnName)
+    private array $stateCol;
+    public function __construct($em,string $objectName,string $userColumnName,string $passwordColumnName,array $stateCol=NULL)
     {
         session_start();
         $this->objectName = $objectName;
         $this->userColumnName = $userColumnName;
         $this->passwordColumnName= $passwordColumnName;
         $this->em = $em;
+        $this->stateCol = $stateCol;
         
     }
     private function getter () {
         return [
-            'byOne'=>'findOneBy'.$this->userColumnName,
-            'PasswordC'=>"get$this->passwordColumnName",
-            'UserC'=>"get$this->userColumnName"
+            'selectByOneUser'=>'findOneBy'.$this->userColumnName,
+            'selectPassword'=>"get$this->passwordColumnName",
+            'UserC'=>"get$this->userColumnName",
+            'etatC'=>(isset($stateCol)? ("get".ucfirst($this->stateCol['name'])):"getEtat")
         ];
     }
     public function login($username, $password)
     {
         
         extract($this->getter());
-        $user = $this->em->getRepository($this->objectName)->$byOne($username);
-        if (!empty($user) && password_verify($password, $user->$PasswordC())) {
+        $user = $this->em->getRepository($this->objectName)->$selectByOneUser($username);
+        if (!empty($user) && password_verify($password, $user->$selectPassword()) && $user->$etatC()==$this->stateCol['true']) {
             session_regenerate_id();
             $_SESSION['user'] = $user->$UserC();
-            $_SESSION['password'] = $user->$PasswordC();
+            $_SESSION['password'] = $user->$selectPassword();
             // $_SESSION['id'] = $user->getId();
             return true;
         }
@@ -46,7 +49,7 @@ class Authentication
     public function getUser() {
         extract($this->getter());
         if($this->isLoggedIn()){
-        return $this->em->getRepository($this->objectName)->$byOne($_SESSION['user']);
+        return $this->em->getRepository($this->objectName)->$selectByOneUser($_SESSION['user']);
         } else return NULL;
     }
     public function isLoggedIn()
@@ -56,9 +59,14 @@ class Authentication
             return "session_vide";
         }
         extract($this->getter());
-        $user=$this->em->getRepository($this->objectName)->$byOne($_SESSION['user']);
-        $password=$user->$PasswordC();
-        if (!empty($user) && $password === $_SESSION['password']) {
+        $user=$this->em->getRepository($this->objectName)->$selectByOneUser($_SESSION['user']);
+        $password=$user->$selectPassword();
+        if (
+                !empty($user) && 
+                $password === $_SESSION['password'] && 
+                $user->$etatC()
+                ==$this->stateCol['true']
+            ) {
             return true;
         } else {
             return false;

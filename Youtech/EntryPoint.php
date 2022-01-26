@@ -41,7 +41,10 @@ class EntryPoint
             !$authentication->isLoggedIn()
         ) {
             header('location: /login/error');
-        }
+        } else if (isset($routes[$this->route]['permissions'] ) && !$this->routes->checkPermission(
+            $routes[$this->route]['user'])){
+                header('location: /permission/error');
+        }else {
         $controller = $routes[$this->route][$this->method]['controller'];
         $action = $routes[$this->route][$this->method]['action'];
         $page = $controller->$action();
@@ -61,8 +64,9 @@ class EntryPoint
                 'log'=> $authentication->getUser()?->getRole()->getId(),
                 'output' => $output,
                 'title' => $title,
+                
             ]
         );
-        // }
+         }
     }
 }

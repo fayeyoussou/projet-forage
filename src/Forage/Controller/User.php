@@ -72,7 +72,12 @@ class User
     }
     public function list()
     {
-        $users = $this->em->getRepository('User')->findAll();
+        $users = $this->em->createQuery('
+        SELECT u
+        FROM USER u
+        WHERE u.role != 1 and u.etat = 1
+        ')->getResult();
+        // $users = $this->em->getRepository('User')->findBy(array('etat'=>1));
         $title = 'liste des utilisateurs';
         return [
             'template' => 'listuser.html.php',
@@ -83,6 +88,15 @@ class User
             ]
         ];
     }
+    public function delete()
+    {
+        extract($_POST);
+        foreach ($users as $user) {
+            $this->em->find('User',$user)->setEtat(0);
+        }
+        $this->em->flush();
+        header('location: /user/list');
+    }
 
     public function submitLogin()
     {
@@ -90,5 +104,25 @@ class User
         if ($this->authentication->login($login['email'], $login['password']))
             header('location: /');
         else header('location: /login/error');
+    }
+    public function testpost(){
+        return [
+            'template' => 'test.html.php',
+            'title' => 'test',
+            'variables'=>
+            [
+                'post'=>$_POST
+            ]
+            ];
+    }
+    public function testget(){
+        return [
+            'template' => 'test.html.php',
+            'title' => 'test',
+            'variables'=>
+            [
+                'post'=>$_POST
+            ]
+            ];
     }
 }

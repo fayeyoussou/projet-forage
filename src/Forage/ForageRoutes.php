@@ -9,11 +9,11 @@ class ForageRoutes implements \Youtech\Routes
     public function __construct($em)
     {
         $this->em = $em;
-        $this->authentication = new \Youtech\Authentication($this->em, 'User', 'Email', 'Password');
+        $this->authentication = new \Youtech\Authentication($this->em, 'User', 'Email', 'Password',array('name'=>'Etat','true'=>1));
     }
     public function checkPermission($permission): bool
     {
-        return true;
+        return $permission == ($this->authentication->getUser()->getRole()->getNom());
     }
     public function getRoutes(): array
     {
@@ -26,6 +26,17 @@ class ForageRoutes implements \Youtech\Routes
                     'action' => 'home'
                 ]
             ],
+            'test/youssou' =>
+            [
+                'POST' => [
+                    'controller' => $userController,
+                    'action' => 'testpost'
+                ],
+                'GET' => [
+                    'controller' => $userController,
+                    'action' => 'testget'
+                ]
+            ],
             'login/signin' =>
             [
                 'GET' => [
@@ -36,7 +47,7 @@ class ForageRoutes implements \Youtech\Routes
                     'controller' => $userController,
                     'action' => 'submitLogin'
                 ],
-                'login'=>true,
+                // 'login'=>true,
             ],
             'user/create' =>
             [
@@ -48,15 +59,38 @@ class ForageRoutes implements \Youtech\Routes
                     'controller' => $userController,
                     'action' => 'userSubmit'
                 ],
-                'login'=>true,
+                'login' => true,
+                'user'=>'Admin'
             ],
-            'user/list'=>
+            'user/list' =>
             [
+                'GET' => [
+                    'controller' => $userController,
+                    'action' => 'list'
+                ],
+                'login' => true,
+                'user'=>'Admin'
+            ],
+            'user/delete' => [
+                'POST' => [
+                    'controller' => $userController,
+                    'action' => 'delete'
+                ],
+                'login' => true,
+                'user'=>'Admin'
+            ],
+            'login/error'=>[
                 'GET'=>[
-                    'controller'=>$userController,
-                    'action'=> 'list'
+                    'controller'=>$default,
+                    'action'=> 'loginError'
                 ]
-            ]
+                ],
+                'permission/error'=>[
+                    'GET'=>[
+                        'controller'=>$default,
+                        'action'=> 'PermissionError'
+                    ]
+                ]
         ];
         return $routes;
     }

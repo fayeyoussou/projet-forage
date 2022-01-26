@@ -1,66 +1,72 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title><?=$title?></title>
-	<link type="text/css" href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link type="text/css" href="/resources/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-	<link type="text/css" href="/resources/css/theme.css" rel="stylesheet">
-	<link type="text/css" href="/resources/images/icons/css/font-awesome.css" rel="stylesheet">
-	<link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
-</head>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edmin</title>
+        <link type="text/css" href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link type="text/css" href="/resources/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link type="text/css" href="/resources/css/theme.css" rel="stylesheet">
+        <link type="text/css" href="/resources/images/icons/css/font-awesome.css" rel="stylesheet">
+        <link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
+    </head>
+
 <body>
+    
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                    <i class="icon-reorder shaded"></i></a><a class="brand" href="index.html">Sen Forage </a>
+                <div class="nav-collapse collapse navbar-inverse-collapse">
 
-	<div class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
-					<i class="icon-reorder shaded"></i>
-				</a>
 
-			  	<a class="brand" href="index.html">
-			  		Sen Forage
-			  	</a>
+                    <ul class="nav pull-right">
 
-				<div class="nav-collapse collapse navbar-inverse-collapse">
-				
-					<ul class="nav pull-right">
 
-						<?php if(isset($log)) { ?>
-							<li class="nav-user dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="images/user.png" class="nav-avatar" />
+                        <li class="nav-user dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="/resources/images/user.png" class="nav-avatar" />
                                 <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Your Profile</a></li>
-                                    <li><a href="#">Edit Profile</a></li>
-                                    <li><a href="#">Account Settings</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Logout</a></li>
-                                </ul>
-                            </li>
-							<?php } ?>
-					</ul>
-				</div><!-- /.nav-collapse -->
-			</div>
-		</div><!-- /navbar-inner -->
-	</div><!-- /navbar -->
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Your Profile</a></li>
+                                <li><a href="#">Edit Profile</a></li>
+                                <li><a href="#">Account Settings</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.nav-collapse -->
+            </div>
+        </div>
+        <!-- /navbar-inner -->
+    </div>
+    <!-- /navbar -->
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <?= $output ?>
+            </div>
 
-	<?=$output?>
-	<?php
-	// var_dump($usert);
-	?>
+        </div>
+        <!--/.container-->
+    </div>
+    <!--/.wrapper-->
+    <div class="footer">
+        <div class="container">
+            <b class="copyright">&copy; 2014 Edmin - EGrappler.com </b>All rights reserved.
+        </div>
+    </div>
+    <script src="/resources/scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="/resources/scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+    <script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/resources/scripts/flot/jquery.flot.js" type="text/javascript"></script>
+    <script src="/resources/scripts/flot/jquery.flot.resize.js" type="text/javascript"></script>
+    <script src="/resources/scripts/datatables/jquery.dataTables.js" type="text/javascript"></script>
+    <script src="/resources/scripts/common.js" type="text/javascript"></script>
 
-	<div class="footer">
-		<div class="container">
-			 
-
-			<b class="copyright">&copy; 2022 PHP  / ORM / Youssoupha Faye</b> All rights reserved.
-		</div>
-	</div>
-	<script src="/resources/scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
-	<script src="/resources/scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
-	<script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 </body>

@@ -11,4 +11,17 @@ class Forage {
         if(!$this->authentication->isLoggedIn()) header('location: /login/signin');
         else header('location: /home/dashboard');
     }
+    public function loginError ()
+    {
+        return [
+            'template'=>'loginerror.html.php',
+            'title'=> 'Pas Connecte'
+        ];
+    } 
+    public function PermissionError () {
+        return [
+            'template'=>'permissionerror.html.php',
+            'title'=> 'Acces restreint'
+        ];
+    }
 }
