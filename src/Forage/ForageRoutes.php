@@ -49,7 +49,7 @@ class ForageRoutes implements \Youtech\Routes
                 ],
                 // 'login'=>true,
             ],
-            'user/create' =>
+            'user/manage' =>
             [
                 'GET' => [
                     'controller' => $userController,
@@ -60,7 +60,6 @@ class ForageRoutes implements \Youtech\Routes
                     'action' => 'userSubmit'
                 ],
                 'login' => true,
-                'user'=>'Admin'
             ],
             'user/list' =>
             [
@@ -70,6 +69,12 @@ class ForageRoutes implements \Youtech\Routes
                 ],
                 'login' => true,
                 'user'=>'Admin'
+            ],
+            'user/profil' => [
+                'GET' => [
+                    'controller' => $userController,
+                    'action' => 'showprofil'
+                ]
             ],
             'user/delete' => [
                 'POST' => [

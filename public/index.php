@@ -18,7 +18,7 @@ try {
      */
 
     $route = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
-    // echo password_hash('mamico',PASSWORD_DEFAULT);
+    // echo password_hash('passer123',PASSWORD_DEFAULT);
     $entryPoint = new \Youtech\entryPoint($route,new \src\Forage\ForageRoutes($entityManager),$_SERVER['REQUEST_METHOD']);
     $entryPoint->run();
 } catch (\Exception $e) {

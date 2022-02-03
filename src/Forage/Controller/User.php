@@ -56,6 +56,16 @@ class User
     public function userCreate()
     {
         $roles = $this->em->getRepository('Role')->findAll();
+        if (isset($_GET['id'])) {
+            $user = $this->em->find('User', $_GET['id']);
+            $title = 'Modifier le profil d\'utilisateur';
+            return [
+                'template' => 'usercreate.html.php', 'title' => $title, 'variables' => [
+                    'roles' => $roles,
+                    'user' => $user
+                ],
+            ];
+        }
         $title = 'Creation d\'utilisateur';
         return [
             'template' => 'usercreate.html.php', 'title' => $title, 'variables' => [
@@ -65,10 +75,28 @@ class User
     }
     public function userSubmit()
     {
+
         extract($_POST);
-        $res = $this->addUser($user['nom'], $user['prenom'], $user['email'], $user['role'], $user['password']);
-        $title = 'Formulaire De Connexion';
+        if ($user['etat'] == 0) {
+            $this->addUser($user['nom'], $user['prenom'], $user['email'], $user['role'], $user['password']);
+            header('location: /user/list');
+
+        } else {
+            $this->setUser($user);
+            header('location: /user/list');
+
+        }
+        // $title = 'Formulaire De Connexion';
         header('location: /user/list');
+    }
+    public function setUser($user)
+    {
+        $userm = $this->em->find('User', $user['etat']);
+        $userm->setNom($user['nom']);
+        $userm->setPrenom($user['prenom']);
+        $userm->setEmail($user['email']);
+        $userm->setRole($this->em->find('Role', $user['role']));
+        $this->em->flush();
     }
     public function list()
     {
@@ -92,7 +120,7 @@ class User
     {
         extract($_POST);
         foreach ($users as $user) {
-            $this->em->find('User',$user)->setEtat(0);
+            $this->em->find('User', $user)->setEtat(0);
         }
         $this->em->flush();
         header('location: /user/list');
@@ -105,24 +133,43 @@ class User
             header('location: /');
         else header('location: /login/error');
     }
-    public function testpost(){
+    public function testpost()
+    {
         return [
             'template' => 'test.html.php',
             'title' => 'test',
-            'variables'=>
+            'variables' =>
             [
-                'post'=>$_POST
+                'post' => $_POST
             ]
-            ];
+        ];
     }
-    public function testget(){
+    public function showprofil()
+    {
+        $user = "";
+        if (isset($_GET['id'])) {
+            $user = $this->em->find('User', $_GET['id']);
+        } else {
+            $user = $this->authentication->getUser();
+        }
+        return [
+            'template' => 'profiluser.html.php',
+            'title' => "profil de $user->getPrenom() $user->getNom()",
+            'variables' =>
+            [
+                'userProfil' => $user
+            ]
+        ];
+    }
+    public function testget()
+    {
         return [
             'template' => 'test.html.php',
             'title' => 'test',
-            'variables'=>
+            'variables' =>
             [
-                'post'=>$_POST
+                'post' => $_POST
             ]
-            ];
+        ];
     }
 }
