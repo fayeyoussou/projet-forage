@@ -57,11 +57,17 @@ class EntryPoint
         } else {
             $output = $this->loadTemplate($page['template']);
         }
+        if ($authentication->isLoggedIn() )
+        {
+            $sidebar = $this->loadTemplate($this->routes->getRoleTemplate());
+
+        }else $sidebar = '';
         
         echo $this->loadTemplate(
             'layout.html.php',
             [
-                'log'=> $authentication->getUser()?->getRole()->getId(),
+                'log'=> $authentication->getUser(),
+                'sidebar'=>$sidebar,
                 'output' => $output,
                 'title' => $title,
                 

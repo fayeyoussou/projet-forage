@@ -4,5 +4,7 @@ interface Routes
 {
     public function getRoutes() : array;
     public function checkPermission($permission): bool;
-    public function getAuthentication();
+    public function getAuthentication() : Authentication;
+    public function getRoleTemplate ():string;
+
 }

@@ -9,7 +9,7 @@ class User
         $this->authentication =  $authentication;
         $this->em = $em;
     }
-    public function addUser($nom, $prenom, $email, $role, $password, $etat = 1)
+    public function addUser($nom, $prenom, $email, $role, $password,$extension, $etat = 1)
     {
         try {
             $user = new \User();
@@ -19,6 +19,7 @@ class User
             $user->setRole($this->em->find('Role', $role));
             $user->setEtat(1);
             $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
+            $user->setExtension($extension);
             $this->em->persist($user);
             $this->em->flush();
             return $user->getId();
@@ -56,6 +57,7 @@ class User
     public function userCreate()
     {
         $roles = $this->em->getRepository('Role')->findAll();
+        if($this->authentication->isLoggedIn() &&( $this->authentication->getUser()->getRole()->getId()==1 || $this->authentication->user->getId()==$_GET['id'])){
         if (isset($_GET['id'])) {
             $user = $this->em->find('User', $_GET['id']);
             $title = 'Modifier le profil d\'utilisateur';
@@ -71,32 +73,46 @@ class User
             'template' => 'usercreate.html.php', 'title' => $title, 'variables' => [
                 'roles' => $roles
             ],
+        ];} else return [
+            'template'=> 'permissionerror.html.php'
         ];
     }
     public function userSubmit()
     {
 
         extract($_POST);
+        $typeext = explode("/",$_FILES['user']['type']['image']);
+
+        
+            
         if ($user['etat'] == 0) {
-            $this->addUser($user['nom'], $user['prenom'], $user['email'], $user['role'], $user['password']);
-            header('location: /user/list');
+            $usert = $this->addUser($user['nom'], $user['prenom'], $user['email'], $user['role'], $user['password'],$typeext[1]);
+            // header('location: /user/list');
 
         } else {
-            $this->setUser($user);
-            header('location: /user/list');
+            $usert = $this->setUser($user,$typeext[1]);
+            // header('location: /user/list');
 
         }
-        // $title = 'Formulaire De Connexion';
+        $target = "resources/userimage/user-".$usert.".".$typeext[1];
+        var_dump ( $_FILES['user']['tmp_name']);
+        if($typeext[0]=='image' && 
+        move_uploaded_file($_FILES['user']['tmp_name']['image'],$target)){
         header('location: /user/list');
+            
+        }
+        // $title = 'Formulaire De Connexion';
     }
-    public function setUser($user)
+    public function setUser($user,$extension)
     {
         $userm = $this->em->find('User', $user['etat']);
         $userm->setNom($user['nom']);
         $userm->setPrenom($user['prenom']);
         $userm->setEmail($user['email']);
         $userm->setRole($this->em->find('Role', $user['role']));
+        $userm->setExtension($extension);
         $this->em->flush();
+        return $userm->getId();
     }
     public function list()
     {
@@ -171,5 +187,8 @@ class User
                 'post' => $_POST
             ]
         ];
+    }
+    public function logout (){
+
     }
 }

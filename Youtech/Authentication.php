@@ -54,18 +54,17 @@ class Authentication
             // $_SESSION['id'] = $user->getId();
             return true;
         } else {
-            $_SESSION = [];
-            unset($_SESSION);
-            session_destroy();
-            // return $user;
+            $this->logout();
             return false;
         }
     }
     public function getUser()
     {
+
         extract($this->getter());
         if ($this->isLoggedIn()) {
-            return $this->em->getRepository($this->objectName)->$selectByOneUser($_SESSION['user']);
+            $this->user = $this->em->getRepository($this->objectName)->$selectByOneUser($_SESSION['user']);
+            return $this->user;
         } else return NULL;
     }
     public function isLoggedIn()
@@ -75,20 +74,27 @@ class Authentication
             return "session_vide";
         }
         extract($this->getter());
-        $user = $this->em->getRepository($this->objectName)->$selectByOneUser($_SESSION['user']);
-        $password = $user->$selectPassword();
+        $this->user = $this->em->getRepository($this->objectName)->$selectByOneUser($_SESSION['user']);
+        $password = $this->user->$selectPassword();
         if (
-            !empty($user) &&
+            !empty($this->user) &&
             $password === $_SESSION['password'] &&
             (
                 isset($this->stateCol['true']) ||
-                $user->$etatC() == $this->stateCol['true']
+                $this->user->$etatC() == $this->stateCol['true']
             )
         ) {
             return true;
         } else {
+            $this->logout();
             return false;
         }
         // return true;
+    }
+    public function logout () {
+        $_SESSION = [];
+        unset($_SESSION);
+        session_destroy();
+        $this->user = null;
     }
 }

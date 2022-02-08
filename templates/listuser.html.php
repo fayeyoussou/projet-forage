@@ -18,9 +18,11 @@
                     <button type="button" class="btn">
                         All</button>
                     <button type="button" class="btn">
-                        Male</button>
+                        compteur </button>
                     <button type="button" class="btn">
-                        Female</button>
+                        clientele</button>
+                        <button type="button" class="btn">
+                        commercial</button>
                 </div>
             </div>
             <form class="form-vertical" method="POST" action="/user/delete">
@@ -39,7 +41,7 @@
                         <div class="span6">
                             <div class="media user">
                                 <a class="media-avatar pull-left" href="#">
-                                    <img src="/resources/images/user.jpeg">
+                                    <img src="/resources/userimage/user-<?=$user->getId().'.'.$user->getExtension()?>">
                                 </a>
                                 <div class="media-body">
                                     <h3 class="media-title">

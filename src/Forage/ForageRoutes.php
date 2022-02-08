@@ -99,6 +99,9 @@ class ForageRoutes implements \Youtech\Routes
         ];
         return $routes;
     }
+    public function getRoleTemplate () : string {
+        return strtolower($this->authentication->getUser()->getRole()->getNom()).".html.php";
+    }
     public function getAuthentication(): \Youtech\Authentication
     {
         return $this->authentication;

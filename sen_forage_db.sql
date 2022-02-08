@@ -33,7 +33,10 @@ CREATE TABLE `abonnement` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_351268BBEEB69F7B` (`attribution_id`),
   KEY `IDX_351268BBA76ED395` (`user_id`),
-  KEY `IDX_351268BB8254716F` (`habitant_id`)
+  KEY `IDX_351268BB8254716F` (`habitant_id`),
+  CONSTRAINT `FK_351268BB8254716F` FOREIGN KEY (`habitant_id`) REFERENCES `habitant` (`id`),
+  CONSTRAINT `FK_351268BBA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_351268BBEEB69F7B` FOREIGN KEY (`attribution_id`) REFERENCES `attribution` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -60,7 +63,9 @@ CREATE TABLE `attribution` (
   `dateAttribution` date NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_C751ED49AA3B9810` (`compteur_id`),
-  UNIQUE KEY `UNIQ_C751ED49F1D74413` (`abonnement_id`)
+  UNIQUE KEY `UNIQ_C751ED49F1D74413` (`abonnement_id`),
+  CONSTRAINT `FK_C751ED49AA3B9810` FOREIGN KEY (`compteur_id`) REFERENCES `compteur` (`id`),
+  CONSTRAINT `FK_C751ED49F1D74413` FOREIGN KEY (`abonnement_id`) REFERENCES `abonnement` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -89,7 +94,9 @@ CREATE TABLE `compteur` (
   `etat` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_4D021BD5EEB69F7B` (`attribution_id`),
-  KEY `IDX_4D021BD5A76ED395` (`user_id`)
+  KEY `IDX_4D021BD5A76ED395` (`user_id`),
+  CONSTRAINT `FK_4D021BD5A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_4D021BD5EEB69F7B` FOREIGN KEY (`attribution_id`) REFERENCES `attribution` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -118,7 +125,9 @@ CREATE TABLE `consommation` (
   `etat` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `IDX_F993F0A2A76ED395` (`user_id`),
-  KEY `IDX_F993F0A2AA3B9810` (`compteur_id`)
+  KEY `IDX_F993F0A2AA3B9810` (`compteur_id`),
+  CONSTRAINT `FK_F993F0A2A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_F993F0A2AA3B9810` FOREIGN KEY (`compteur_id`) REFERENCES `compteur` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -149,7 +158,10 @@ CREATE TABLE `facture` (
   PRIMARY KEY (`id`),
   KEY `IDX_FE8664106A477111` (`reglement_id`),
   KEY `IDX_FE866410A76ED395` (`user_id`),
-  KEY `IDX_FE866410C1076F84` (`consommation_id`)
+  KEY `IDX_FE866410C1076F84` (`consommation_id`),
+  CONSTRAINT `FK_FE8664106A477111` FOREIGN KEY (`reglement_id`) REFERENCES `reglement` (`id`),
+  CONSTRAINT `FK_FE866410A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_FE866410C1076F84` FOREIGN KEY (`consommation_id`) REFERENCES `consommation` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -179,7 +191,9 @@ CREATE TABLE `habitant` (
   `etat` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_9BADFD8B4E6C7FAA` (`village`),
-  KEY `IDX_9BADFD8BA76ED395` (`user_id`)
+  KEY `IDX_9BADFD8BA76ED395` (`user_id`),
+  CONSTRAINT `FK_9BADFD8B4E6C7FAA` FOREIGN KEY (`village`) REFERENCES `village` (`id`),
+  CONSTRAINT `FK_9BADFD8BA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -206,7 +220,8 @@ CREATE TABLE `reglement` (
   `montantReglement` int NOT NULL,
   `etat` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `IDX_EBE4C14CA76ED395` (`user_id`)
+  KEY `IDX_EBE4C14CA76ED395` (`user_id`),
+  CONSTRAINT `FK_EBE4C14CA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -258,9 +273,11 @@ CREATE TABLE `user` (
   `email` varchar(80) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `etat` tinyint(1) NOT NULL DEFAULT '1',
+  `extension` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `IDX_8D93D64957698A6A` (`role`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  KEY `IDX_8D93D64957698A6A` (`role`),
+  CONSTRAINT `FK_8D93D64957698A6A` FOREIGN KEY (`role`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -269,7 +286,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,1,'Faye','Youssoupha','fayeyousso@gmail.com','$2y$10$UPg6sjO8YzVWR3VMDTVro.ZUboHc2yIfoqAc23lTQOd9AQH5tXO72',1),(2,2,'Diop','Mamadou Isshaga','presi@gmail.com','$2y$10$zhGrB6qkUF3LkiQqs4RZLuLGPdNBzpvyk9QPYvC6ysEuI3jshhKhS',1),(3,3,'Thiam','Mbourel Coumba','Mbourou@gmail.com','$2y$10$EJurrB58a1CwWnaXrMZBFueglTpa1XulPTIkOEFw0Su7f4ijT9d22',1),(5,4,'Niang','Ibrahima','ibouniang@outlook.fr','$2y$10$pN5LmGdgkY45iOodJoy1fOo43AP59Tpy7BDsB3Fm09CLlswJ8ij8m\r\n',1),(6,2,'Thiam','mohamed','mothiam@gmail.com','$2y$10$FduZgfoVrtWS4tpkhuvsvO7MVEprxMTOyrIG7a7v0MSRKNIlRKAmO',1),(7,3,'Assane','Anida','Anasa@gmail.com','$2y$10$hZAGlPVr/o0sREXet08kxOnJhMGlywk3DaopljYBCYmps6JXLSISC',1);
+INSERT INTO `user` VALUES (1,1,'Faye','Youssoupha','fayeyousso@gmail.com','$2y$10$UPg6sjO8YzVWR3VMDTVro.ZUboHc2yIfoqAc23lTQOd9AQH5tXO72',1,'jpeg'),(2,2,'Diop','Mamadou Isshaga','presi@gmail.com','$2y$10$zhGrB6qkUF3LkiQqs4RZLuLGPdNBzpvyk9QPYvC6ysEuI3jshhKhS',1,'jpeg'),(3,3,'Thiam','Mbourel Coumba','Mbourou@gmail.com','$2y$10$EJurrB58a1CwWnaXrMZBFueglTpa1XulPTIkOEFw0Su7f4ijT9d22',1,'jpeg'),(5,4,'Niang','Ibrahima','ibouniang@outlook.fr','$2y$10$pN5LmGdgkY45iOodJoy1fOo43AP59Tpy7BDsB3Fm09CLlswJ8ij8m\r\n',1,'jpeg'),(6,2,'Thiam','mohamed','mothiam@gmail.com','$2y$10$FduZgfoVrtWS4tpkhuvsvO7MVEprxMTOyrIG7a7v0MSRKNIlRKAmO',1,'jpeg'),(7,3,'Assane','Anida','Anasa@gmail.com','$2y$10$hZAGlPVr/o0sREXet08kxOnJhMGlywk3DaopljYBCYmps6JXLSISC',1,'jpeg'),(8,3,'Kane','maguette','makane@gmail.com','$2y$10$IukGUU2hLwpf3WKVElgXZOnSpsuO6gaMpdUzCEoDuCxcFdBToYzXm',1,'jpeg');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -288,7 +305,9 @@ CREATE TABLE `village` (
   `chefVillage` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_4E6C7FAA7C4CF1CE` (`chefVillage`),
-  KEY `IDX_4E6C7FAAA76ED395` (`user_id`)
+  KEY `IDX_4E6C7FAAA76ED395` (`user_id`),
+  CONSTRAINT `FK_4E6C7FAA7C4CF1CE` FOREIGN KEY (`chefVillage`) REFERENCES `habitant` (`id`),
+  CONSTRAINT `FK_4E6C7FAAA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -310,4 +329,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-03 12:48:40
+-- Dump completed on 2022-02-08 19:59:27

@@ -32,12 +32,17 @@ class User {
     /**
      * @ORM\Column(type="boolean",options={"default": 1})
     */
+    
     private $etat;
     /**
      * @ORM\ManyToOne(targetEntity="Role")
      * @ORM\JoinColumn(name="role", referencedColumnName="id")
      */
     private $role;
+    /**
+     * @ORM\Column(type="string", length="5")
+    */
+    private $extension;
     public function __construct () {
 
     }
@@ -90,8 +95,11 @@ class User {
     {
         $this->role = $role;
     }
-    public function getUser()
+    public function getExtension () {
+        return $this->extension;
+    }
+    public function setExtension($extension)
     {
-        return $this->email;
+        $this->extension = $extension;
     }
 }
