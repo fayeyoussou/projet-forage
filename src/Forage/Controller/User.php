@@ -189,6 +189,6 @@ class User
         ];
     }
     public function logout (){
-
+        $this->authentication->logout();
     }
 }

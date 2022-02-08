@@ -9,7 +9,7 @@ class ForageRoutes implements \Youtech\Routes
     public function __construct($em)
     {
         $this->em = $em;
-        $this->authentication = new \Youtech\Authentication($this->em, 'User', 'Email', 'Password',array('name'=>'Etat','true'=>1));
+        $this->authentication = new \Youtech\Authentication($this->em, 'User', 'Email', 'Password', array('name' => 'Etat', 'true' => 1));
     }
     public function checkPermission($permission): bool
     {
@@ -19,7 +19,8 @@ class ForageRoutes implements \Youtech\Routes
     {
         $default = new \src\Forage\Controller\Forage($this->authentication);
         $userController = new \src\Forage\Controller\User($this->authentication, $this->em);
-        $routes = [
+        $clientController = new \src\Forage\Controller\Client();
+        return [
             '' => [
                 'GET' => [
                     'controller' => $default,
@@ -49,6 +50,14 @@ class ForageRoutes implements \Youtech\Routes
                 ],
                 // 'login'=>true,
             ],
+            'login/error' => [
+                'GET' => [
+                    'controller' => $default,
+                    'action' => 'loginError'
+                ]
+            ],
+
+            
             'user/manage' =>
             [
                 'GET' => [
@@ -68,12 +77,12 @@ class ForageRoutes implements \Youtech\Routes
                     'action' => 'list'
                 ],
                 'login' => true,
-                'user'=>'Admin'
+                'user' => 'Admin'
             ],
             'user/profil' => [
                 'GET' => [
                     'controller' => $userController,
-                    'action' => 'showprofil'
+                    'action' => 'userCreate'
                 ]
             ],
             'user/delete' => [
@@ -82,25 +91,37 @@ class ForageRoutes implements \Youtech\Routes
                     'action' => 'delete'
                 ],
                 'login' => true,
-                'user'=>'Admin'
+                'user' => 'Admin'
             ],
-            'login/error'=>[
-                'GET'=>[
-                    'controller'=>$default,
-                    'action'=> 'loginError'
-                ]
+            'user/logout' => [
+                'GET' => [
+                    'controller' => $userController,
+                    'action' => 'logout'
                 ],
-                'permission/error'=>[
-                    'GET'=>[
-                        'controller'=>$default,
-                        'action'=> 'PermissionError'
-                    ]
+            ],
+
+
+            'client/list' =>
+            [
+                'GET' => [
+                    'controller' => $clientController,
+                    'action' => 'list'
                 ]
+            ],
+
+
+            'permission/error' => [
+                'GET' => [
+                    'controller' => $default,
+                    'action' => 'PermissionError'
+                ]
+            ],
+
         ];
-        return $routes;
     }
-    public function getRoleTemplate () : string {
-        return strtolower($this->authentication->getUser()->getRole()->getNom()).".html.php";
+    public function getRoleTemplate(): string
+    {
+        return strtolower($this->authentication->getUser()->getRole()->getNom()) . ".html.php";
     }
     public function getAuthentication(): \Youtech\Authentication
     {
