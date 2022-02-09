@@ -1,3 +1,4 @@
+
 <div class="module module-login span4 offset4">
 	<form class="form-vertical" method="POST" enctype="multipart/form-data">
 		<div class="module-head">
@@ -26,7 +27,7 @@
 					<input class="span12" type="email" placeholder="email" name="user[email]" value="<?= isset($user) ? $user->getEmail() : "" ?>">
 				</div>
 			</div>
-			<?php if (isset($roles)) { ?>
+			<?php if (isset($roles) && $connected==1) { ?>
 				<div class="control-group">
 					<div class="controls row-fluid">
 						<label for="user[role]">Choisir un role</label>

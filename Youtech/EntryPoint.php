@@ -55,10 +55,12 @@ class EntryPoint
                 $page['variables']
             );
         } else {
+            // echo "right here";
             $output = $this->loadTemplate($page['template']);
         }
         if ($authentication->isLoggedIn() )
         {
+            
             $sidebar = $this->loadTemplate($this->routes->getRoleTemplate());
 
         }else $sidebar = '';

@@ -19,7 +19,7 @@ class ForageRoutes implements \Youtech\Routes
     {
         $default = new \src\Forage\Controller\Forage($this->authentication);
         $userController = new \src\Forage\Controller\User($this->authentication, $this->em);
-        $clientController = new \src\Forage\Controller\Client();
+        $villageController = new \src\Forage\Controller\Village($this->em, $this->authentication->getUser());
         return [
             '' => [
                 'GET' => [
@@ -57,7 +57,7 @@ class ForageRoutes implements \Youtech\Routes
                 ]
             ],
 
-            
+
             'user/manage' =>
             [
                 'GET' => [
@@ -101,13 +101,37 @@ class ForageRoutes implements \Youtech\Routes
             ],
 
 
-            'client/list' =>
+
+            'village/create' =>
             [
                 'GET' => [
-                    'controller' => $clientController,
-                    'action' => 'list'
-                ]
+                    'controller' => $villageController,
+                    'action' => 'creervillage'
+                ],
+                'POST' => [
+                    'controller' => $villageController,
+                    'action' => 'submitvillage'
+                ],
+                'login' => true,
+                'user' => 'Gestionnaire Clientele'
             ],
+            'village/list' => [
+                'GET' => [
+                    'controller' => $villageController,
+                    'action' => 'listervillage'
+                ],
+                'login' => true,
+                'user' => 'Gestionnaire Clientele'
+            ],
+            'village/delete' => [
+                'POST' => [
+                    'controller' => $villageController,
+                    'action' => 'delete'
+                ],
+                'login' => true,
+                'user' => 'Gestionnaire Clientele'
+            ],
+
 
 
             'permission/error' => [
@@ -121,7 +145,10 @@ class ForageRoutes implements \Youtech\Routes
     }
     public function getRoleTemplate(): string
     {
-        return strtolower($this->authentication->getUser()->getRole()->getNom()) . ".html.php";
+        // echo "roletemplate";
+        // if ($this->authentication->isLoggedIn())
+        return str_replace(' ', '', strtolower($this->authentication->getUser()->getRole()->getNom())) . ".html.php";
+        // else return 'empty.html.php'; 
     }
     public function getAuthentication(): \Youtech\Authentication
     {

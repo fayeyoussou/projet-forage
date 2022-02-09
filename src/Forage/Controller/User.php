@@ -35,43 +35,30 @@ class User
 
         $title = 'Formulaire De Connexion';
         return [
-            'template' => 'login.html.php', 'title' => $title, 'variables' => [
-                // 'test'=>$test,
-            ],
+            'template' => 'login.html.php', 
+            'title' => $title
         ];
     }
-    // public function formUser()
-    // {
-    //     // $roles = [];
-    //     $roles = $this->em->getRepository('Role')->findAll();
-    //     $title = 'Ajouter Utilisateur';
-    //     return [
-    //         'template' => 'adduser.html.php',
-    //         'title' => $title,
-    //         'variables' =>
-    //         [
-    //             'roles' => $roles
-    //         ]
-    //     ];
-    // }
     public function userCreate()
     {
         $roles = $this->em->getRepository('Role')->findAll();
         if($this->authentication->isLoggedIn() &&( $this->authentication->getUser()->getRole()->getId()==1 || $this->authentication->user->getId()==$_GET['id'])){
         if (isset($_GET['id'])) {
             $user = $this->em->find('User', $_GET['id']);
-            $title = 'Modifier le profil d\'utilisateur';
+            $title = 'Modifier le profil de '.$user->getPrenom().' '.$user->getNom();
             return [
                 'template' => 'usercreate.html.php', 'title' => $title, 'variables' => [
                     'roles' => $roles,
-                    'user' => $user
+                    'user' => $user,
+                    'connected'=>$this->authentication->user->getId()
                 ],
             ];
         }
         $title = 'Creation d\'utilisateur';
         return [
             'template' => 'usercreate.html.php', 'title' => $title, 'variables' => [
-                'roles' => $roles
+                'roles' => $roles,
+                'connected'=>$this->authentication->user->getId()
             ],
         ];} else return [
             'template'=> 'permissionerror.html.php'
@@ -109,7 +96,7 @@ class User
         $userm->setNom($user['nom']);
         $userm->setPrenom($user['prenom']);
         $userm->setEmail($user['email']);
-        $userm->setRole($this->em->find('Role', $user['role']));
+        if(isset($user['role'])) $userm->setRole($this->em->find('Role', $user['role']));
         $userm->setExtension($extension);
         $this->em->flush();
         return $userm->getId();
@@ -121,6 +108,7 @@ class User
         FROM USER u
         WHERE u.role != 1 and u.etat = 1
         ')->getResult();
+        
         // $users = $this->em->getRepository('User')->findBy(array('etat'=>1));
         $title = 'liste des utilisateurs';
         return [
@@ -160,23 +148,7 @@ class User
             ]
         ];
     }
-    public function showprofil()
-    {
-        $user = "";
-        if (isset($_GET['id'])) {
-            $user = $this->em->find('User', $_GET['id']);
-        } else {
-            $user = $this->authentication->getUser();
-        }
-        return [
-            'template' => 'profiluser.html.php',
-            'title' => "profil de $user->getPrenom() $user->getNom()",
-            'variables' =>
-            [
-                'userProfil' => $user
-            ]
-        ];
-    }
+    
     public function testget()
     {
         return [
@@ -190,5 +162,6 @@ class User
     }
     public function logout (){
         $this->authentication->logout();
+        header('location: /login/signin');
     }
 }

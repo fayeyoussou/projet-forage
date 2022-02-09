@@ -4,7 +4,7 @@ namespace Youtech;
 
 class Authentication
 {
-    private $user;
+    public $user;
     private $passwordColumnName;
     private $userColumnName;
     private $objectName;

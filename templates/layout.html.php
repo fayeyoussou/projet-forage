@@ -29,22 +29,20 @@
                     <i class="icon-reorder shaded"></i></a><a class="brand" href="index.html">Sen Forage </a>
                 <div class="nav-collapse collapse navbar-inverse-collapse">
 
-
+                    <?php if (isset($log)) { ?>
                     <ul class="nav pull-right">
-
 
                         <li class="nav-user dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="/resources/userimage/user-<?=$log->getId().'.'.$log->getExtension()?>" class="nav-avatar" />
                                 <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Your Profile</a></li>
-                                <li><a href="#">Edit Profile</a></li>
-                                <li><a href="#">Account Settings</a></li>
+                                <li><a href="/user/manage?id=<?=$log->getId()?>">Edit Profile</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">Logout</a></li>
+                                <li><a href="/user/logout">Logout</a></li>
                             </ul>
                         </li>
                     </ul>
+                    <?php } ?>
                 </div>
                 <!-- /.nav-collapse -->
             </div>
@@ -56,7 +54,8 @@
         <div class="container">
             <div class="row">
                 <?=$sidebar?>
-                <?= $output ?>
+                <?php echo $output; ?>
+
             </div>
 
         </div>
