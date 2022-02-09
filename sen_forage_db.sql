@@ -286,7 +286,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,1,'Faye','Youssoupha','fayeyousso@gmail.com','$2y$10$UPg6sjO8YzVWR3VMDTVro.ZUboHc2yIfoqAc23lTQOd9AQH5tXO72',1,'jpeg'),(2,2,'Diop','Mamadou Isshaga','presi@gmail.com','$2y$10$zhGrB6qkUF3LkiQqs4RZLuLGPdNBzpvyk9QPYvC6ysEuI3jshhKhS',1,'jpeg'),(3,3,'Thiam','Mbourel Coumba','Mbourou@gmail.com','$2y$10$EJurrB58a1CwWnaXrMZBFueglTpa1XulPTIkOEFw0Su7f4ijT9d22',1,'jpeg'),(5,4,'Niang','Ibrahima','ibouniang@outlook.fr','$2y$10$pN5LmGdgkY45iOodJoy1fOo43AP59Tpy7BDsB3Fm09CLlswJ8ij8m\r\n',1,'jpeg'),(6,2,'Thiam','mohamed','mothiam@gmail.com','$2y$10$FduZgfoVrtWS4tpkhuvsvO7MVEprxMTOyrIG7a7v0MSRKNIlRKAmO',1,'jpeg'),(7,3,'Assane','Anida','Anasa@gmail.com','$2y$10$hZAGlPVr/o0sREXet08kxOnJhMGlywk3DaopljYBCYmps6JXLSISC',1,'jpeg'),(8,3,'Kane','maguette','makane@gmail.com','$2y$10$IukGUU2hLwpf3WKVElgXZOnSpsuO6gaMpdUzCEoDuCxcFdBToYzXm',1,'jpeg');
+INSERT INTO `user` VALUES (1,1,'Faye','Youssoupha','fayeyousso@gmail.com','$2y$10$UPg6sjO8YzVWR3VMDTVro.ZUboHc2yIfoqAc23lTQOd9AQH5tXO72',1,'jpeg'),(2,2,'Diop','Mamadou Isshaga','presi@gmail.com','$2y$10$zhGrB6qkUF3LkiQqs4RZLuLGPdNBzpvyk9QPYvC6ysEuI3jshhKhS',1,'jpeg'),(3,3,'Thiam','Mbourel Coumba','Mbourou@gmail.com','$2y$10$EJurrB58a1CwWnaXrMZBFueglTpa1XulPTIkOEFw0Su7f4ijT9d22',1,'jpeg'),(5,4,'Niang','Ibrahima','ibouniang@outlook.fr','$2y$10$ilfKZVZnmW7nySQKLHXBBOk0tSVnRl025cb9Q5pyOcNMaFhRP2L0e',1,'jpeg'),(6,2,'Thiam','mohamed','mothiam@gmail.com','$2y$10$FduZgfoVrtWS4tpkhuvsvO7MVEprxMTOyrIG7a7v0MSRKNIlRKAmO',1,'jpeg'),(7,3,'Assane','Anida','Anasa@gmail.com','$2y$10$hZAGlPVr/o0sREXet08kxOnJhMGlywk3DaopljYBCYmps6JXLSISC',1,'jpeg'),(8,3,'Kane','Maguette','makane@gmail.com','$2y$10$XsAfWmCuuqhWCxhzS5PCwuFm9BcLaN0C2vUe8zVaW1R.mtxDQnbri',1,'jpeg');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -308,7 +308,7 @@ CREATE TABLE `village` (
   KEY `IDX_4E6C7FAAA76ED395` (`user_id`),
   CONSTRAINT `FK_4E6C7FAA7C4CF1CE` FOREIGN KEY (`chefVillage`) REFERENCES `habitant` (`id`),
   CONSTRAINT `FK_4E6C7FAAA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -317,6 +317,7 @@ CREATE TABLE `village` (
 
 LOCK TABLES `village` WRITE;
 /*!40000 ALTER TABLE `village` DISABLE KEYS */;
+INSERT INTO `village` VALUES (1,5,'Guereo',1,NULL),(2,5,'Popenguine',1,NULL),(3,5,'Somone',1,NULL),(4,5,'Kignabour',1,NULL),(5,5,'Thiafra',1,NULL);
 /*!40000 ALTER TABLE `village` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -329,4 +330,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-08 19:59:27
+-- Dump completed on 2022-02-09 10:58:41
