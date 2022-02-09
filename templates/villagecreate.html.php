@@ -23,7 +23,7 @@
 									if (isset($village) && $village->getChefVillage() == $client) {
 										echo "selected";
 										}?>
-										><?= $client->getPrenom()." ".$client->getNom() ?></option>
+										><?=$client->getNom() ?></option>
 							<?php } ?>
 						</select>
 						</input>

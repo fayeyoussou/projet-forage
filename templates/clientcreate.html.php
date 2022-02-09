@@ -24,8 +24,8 @@
 			
 				<div class="control-group">
 					<div class="controls row-fluid">
-						<label for="user[role]">Village du client</label>
-						<select class="span12" name="user[role]" required>
+						<label for="client[village]">Village du client</label>
+						<select class="span12" name="client[village]" required>
 
 							<?php foreach ($villages as $village) {
 							?>
@@ -43,7 +43,8 @@
 			
 
 		</div>
-		<input type="hidden" value="<?=isset($client)?$client->getId():0?>" name="client[etat]">
+		<?php if(isset($client)) { ?>
+		<input type="hidden" value="<?=isset($client)?$client->getId():0?>" name="client[etat]"> <?php } ?>
 		<div class="module-foot">
 			<div class="control-group">
 				<div class="controls clearfix">

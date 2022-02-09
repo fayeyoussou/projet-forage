@@ -21,6 +21,7 @@ class ForageRoutes implements \Youtech\Routes
         $userController = new \src\Forage\Controller\User($this->authentication, $this->em);
         $villageController = new \src\Forage\Controller\Village($this->em, $this->authentication->getUser());
         $clientController = new \src\Forage\Controller\Client($this->em, $this->authentication->getUser());
+        $abonnementController = new \src\Forage\Controller\Abonnement($this->em, $this->authentication->getUser());
         return [
             '' => [
                 'GET' => [
@@ -138,7 +139,43 @@ class ForageRoutes implements \Youtech\Routes
                 'GET' => [
                     'controller' => $clientController,
                     'action' => 'creerClient'
-                ]
+                ],
+                'POST' => [
+                    'controller' => $clientController,
+                    'action' => 'clientSubmit'
+                ],
+                'login' => true,
+                'user' => 'Gestionnaire Clientele'
+            ],
+            'client/list' => [
+                'GET' => [
+                    'controller' => $clientController,
+                    'action' => 'list'
+                ],
+                'login' => true,
+                'user' => 'Gestionnaire Clientele'
+            ],
+
+
+            'abonnement/manage' => [
+                'GET'=>[
+                    'controller'=>$abonnementController,
+                    'action'=> 'createabonnement'
+                ],
+                'POST'=> [
+                    'controller'=>$abonnementController,
+                    'action'=> 'abonnementSubmit'
+                ],
+                'login' => true,
+                'user' => 'Gestionnaire Clientele'
+            ],
+            'abonnement/list'=> [
+                'GET'=>[
+                    'controller'=>$abonnementController,
+                    'action'=>'list'
+                ],
+                'login' => true,
+                'user' => 'Gestionnaire Clientele'
             ],
 
 
