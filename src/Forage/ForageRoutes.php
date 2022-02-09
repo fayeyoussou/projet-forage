@@ -20,6 +20,7 @@ class ForageRoutes implements \Youtech\Routes
         $default = new \src\Forage\Controller\Forage($this->authentication);
         $userController = new \src\Forage\Controller\User($this->authentication, $this->em);
         $villageController = new \src\Forage\Controller\Village($this->em, $this->authentication->getUser());
+        $clientController = new \src\Forage\Controller\Client($this->em, $this->authentication->getUser());
         return [
             '' => [
                 'GET' => [
@@ -102,7 +103,7 @@ class ForageRoutes implements \Youtech\Routes
 
 
 
-            'village/create' =>
+            'village/manage' =>
             [
                 'GET' => [
                     'controller' => $villageController,
@@ -130,6 +131,14 @@ class ForageRoutes implements \Youtech\Routes
                 ],
                 'login' => true,
                 'user' => 'Gestionnaire Clientele'
+            ],
+
+
+            'client/manage' => [
+                'GET' => [
+                    'controller' => $clientController,
+                    'action' => 'creerClient'
+                ]
             ],
 
 
