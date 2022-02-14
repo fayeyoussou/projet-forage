@@ -5,29 +5,29 @@
                 <h3>Liste des utilisateurs</h3>
             </div>
             <div class="module-body table">
-                <form class="form-vertical" method="POST" action="/client/delete">
+                <form class="form-vertical" method="POST" action="/abonnement/delete">
                     <table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
                         <thead>
                             <tr>
-                                <th>Nom du Client</th>
-                                <th>Adresse du client</th>
-                                <th>Village du client</th>
-                                <th>Createur du client</th>
+                                <th>numero abonnes</th>
+                                <th>Nom abonnes</th>
+                                <th>Date abonnement</th>
+                                <th>Description</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
 
                             <?php
-                            foreach ($clients as $client) {
+                            foreach ($abonnements as $abo) {
                             ?>
                                 <tr class="gradeA">
 
-                                    <td><?= $client->getNom() ?></td>
-                                    <td><?= $client->getAdresse()?></td>
-                                    <td><?= $client->getVillage()->getNom()?></td>
-                                    <td><?= $client->getUser()->getPrenom() . " " . $client->getUser()->getNom() ?></td>
-                                    <td class="center"><a href="/client/manage?id=<?= $client->getId() ?>">Modifier</a>&emsp;&emsp;<a href="/abonnement/list?id=<?= $client->getId() ?>">Abonnement</a>&emsp;&emsp;<input type="checkbox" name="clients[]" value="<?= $client->getId() ?>"></td>
+                                    <td><?= $abo->getId() ?></td>
+                                    <td><?= $abo->getHabitant()->getNom()?></td>
+                                    <td><?= $abo->getDateAbo()->format('d F Y')?></td>
+                                    <td><?= $abo->getDescription() ?></td>
+                                    <td class="center"><a href="/abonnement/manage?id=<?= $abo->getId() ?>">Modifier</a>&emsp;&emsp;<input type="checkbox" name="abonnements[]" value="<?= $abo->getId() ?>"></td>
                                 </tr>
                             <?php } ?>
 
@@ -35,10 +35,10 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Nom du village</th>
-                                <th>Chef de Village</th>
-                                <th>Nombre d'habitant</th>
-                                <th>Createur du village</th>
+                                <th>numero abonnes</th>
+                                <th>Nom abonnes</th>
+                                <th>Date abonnement</th>
+                                <th>Description</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>

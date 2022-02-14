@@ -29,6 +29,13 @@ class ForageRoutes implements \Youtech\Routes
                     'action' => 'home'
                 ]
             ],
+            'home/dashboard'=>
+            [
+                'GET'=>[
+                    'controller'=>$default,
+                    'action'=>'dashboard'
+                ]
+                ],
             'test/youssou' =>
             [
                 'POST' => [
@@ -177,7 +184,23 @@ class ForageRoutes implements \Youtech\Routes
                 'login' => true,
                 'user' => 'Gestionnaire Clientele'
             ],
+            'abonnement/delete'=>
+            [
+                'POST'=> [
+                    'controller'=>$abonnementController,
+                    'action'=>'delete'
+                ],
+                'login' => true,
+                'user' => 'Gestionnaire Clientele'
+            ],
 
+
+
+            'compteur/manage'=>[
+                'GET'=>[
+                    'controller'
+                ]
+            ],
 
 
             'permission/error' => [
@@ -191,10 +214,7 @@ class ForageRoutes implements \Youtech\Routes
     }
     public function getRoleTemplate(): string
     {
-        // echo "roletemplate";
-        // if ($this->authentication->isLoggedIn())
         return str_replace(' ', '', strtolower($this->authentication->getUser()->getRole()->getNom())) . ".html.php";
-        // else return 'empty.html.php'; 
     }
     public function getAuthentication(): \Youtech\Authentication
     {

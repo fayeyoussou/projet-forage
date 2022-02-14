@@ -48,17 +48,28 @@ class Abonnement {
         header('location: /abonnement/list');
     }
     public function list () {
-        $abo =  $this->em->createQuery('
-        SELECT v
-        FROM Abonnement v
-        WHERE v.etat = 1
-        ')->getResult();
+        extract($_GET);
+        if (isset($_GET['id'])){
+            $abonnements = $this->em->getRepository('Abonnement')->findBy(array('etat'=>1,'habitant'=>$this->em->find('Habitant',$id)));
+        } else {
+            $abonnements = $this->em->getRepository('Abonnement')->findBy(array('etat'=>1,));
+
+        }
+    
         return [
             'template'=> 'abolist.html.php',
             'title'=> 'liste des abonnements',
             'variables'=> [
-                'abo'=>$abo
+                'abonnements'=>$abonnements
             ]
         ];
+    }
+    public function delete() {
+        extract($_POST);
+        foreach ($abonnements as $abo) {
+            $this->em->find('Abonnement', $abo)->setEtat(0);
+        }
+        $this->em->flush();
+        header('location: /abonnement/list');
     }
 }

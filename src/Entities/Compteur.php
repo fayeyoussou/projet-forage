@@ -11,10 +11,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Compteur {
     /**
      * @ORM\Id 
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @ORM\Column(type="string")
+     * @ORM\GeneratedValue(strategy="NONE")
     */
-    private $id;
+    private $numero;
     /**
      * @ORM\Column(type="integer")
     */
@@ -47,12 +47,12 @@ class Compteur {
         $this->consommations = new ArrayCollection();
 
     }
-    public function getId () {
-        return $this->id;
+    public function getNumero () {
+        return $this->numero;
     }
-    public function setId($id)
+    public function setNumero($numero)
     {
-        $this->id = $id;
+        $this->numero = $numero;
     }
     public function getEtat () {
         return $this->etat;

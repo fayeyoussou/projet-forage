@@ -24,4 +24,13 @@ class Forage {
             'title'=> 'Acces restreint'
         ];
     }
+    public function dashboard() {
+        return [
+            'template'=>'test.html.php',
+            'title'=>'dashboard',
+            'variables'=>[
+                'myfile'=> 'empty for now'
+            ]
+        ];
+    }
 }

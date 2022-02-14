@@ -14,7 +14,7 @@ class Consommation {
     */
     private $id;
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string")
     */
     private $dateConsommation;
     /**
@@ -29,7 +29,7 @@ class Consommation {
     /**
      * Many features have one product. This is the owning side.
      * @ORM\ManyToOne(targetEntity="Compteur", inversedBy="consommations")
-     * @ORM\JoinColumn(name="compteur_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="numero_compteur", referencedColumnName="numero")
      */
     private $compteur;
     /**

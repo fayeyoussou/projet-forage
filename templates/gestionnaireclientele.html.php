@@ -11,7 +11,7 @@
                         </ul>
                         <!--/.widget-nav-->
                         <ul class="widget widget-menu unstyled">
-                                <li><a href="/user/create"><i class="fas fa-user-plus"></i> Nouvelle utilisateur</a></li>
+                                <li><a href="/abonnement/manage"><i class="fas fa-user-plus"></i> Nouvelle abonnement</a></li>
                                 
                             </ul>
                         <!--/.widget-nav-->

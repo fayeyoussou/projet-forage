@@ -11,10 +11,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Reglement {
     /**
      * @ORM\Id 
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @ORM\Column(type="string")
+     * @ORM\GeneratedValue(strategy="NONE")
     */
-    private $id;
+    private $numero;
     /**
      * @ORM\Column(type="date")
     */
@@ -30,7 +30,7 @@ class Reglement {
     private $factures;
     /**
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="num_facture", referencedColumnName="numero")
      */
     private $user;
     /**
@@ -40,12 +40,12 @@ class Reglement {
     public function __construct () {
         $this->factures = new ArrayCollection ();
     }
-    public function getId () {
-        return $this->id;
+    public function getNumero () {
+        return $this->numero;
     }
-    public function setId($id)
+    public function setNumero($numero)
     {
-        $this->id = $id;
+        $this->numero = $numero;
     }
     public function getEtat () {
         return $this->etat;
