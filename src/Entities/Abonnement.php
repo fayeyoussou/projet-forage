@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Abonnement {
     /**
      * @ORM\Id 
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length="10")
      * @ORM\GeneratedValue(strategy="NONE")
     */
     private $numero;

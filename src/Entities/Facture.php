@@ -12,7 +12,7 @@ class Facture {
     
     /**
      * @ORM\Id 
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length="10")
      * @ORM\GeneratedValue(strategy="NONE")
     */
     private $numero;
@@ -21,13 +21,13 @@ class Facture {
     */
     private $montantFacture;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string",length="4")
     */
     private $dateFacture;
     /**
      * Many features have one product. This is the owning side.
      * @ORM\ManyToOne(targetEntity="Reglement", inversedBy="factures")
-     * @ORM\JoinColumn(name="reglement_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="numero_reglement", referencedColumnName="numero")
      */
     private $reglement;
     /**

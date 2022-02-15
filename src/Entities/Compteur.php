@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Compteur {
     /**
      * @ORM\Id 
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length="10")
      * @ORM\GeneratedValue(strategy="NONE")
     */
     private $numero;

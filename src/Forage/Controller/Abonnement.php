@@ -31,6 +31,15 @@ class Abonnement {
         else {
             $abo = new \Abonnement();
             $abo->setUser($this->user);
+            $num = $this->em->find('Numero','abo');
+            $periode = (new \DateTime())->format('ym');
+            if(!$num->getPeriode()==$periode){
+                $num->setNumero(0);
+                $num->setPeriode($periode);
+            }
+            $num->setNumero($num->getNumero()+1);
+            $abo->setNumero('AB'.$periode.sprintf("%04d", $num->getNumero()));
+
         }
         $datetime = new \DateTime($abonnement['date']);
         $abo->setDateAbo($datetime);

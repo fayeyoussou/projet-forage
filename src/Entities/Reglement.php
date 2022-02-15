@@ -30,7 +30,7 @@ class Reglement {
     private $factures;
     /**
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="num_facture", referencedColumnName="numero")
+     * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
      */
     private $user;
     /**

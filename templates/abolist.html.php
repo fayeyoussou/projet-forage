@@ -23,11 +23,11 @@
                             ?>
                                 <tr class="gradeA">
 
-                                    <td><?= $abo->getId() ?></td>
+                                    <td><?= $abo->getNumero() ?></td>
                                     <td><?= $abo->getHabitant()->getNom()?></td>
                                     <td><?= $abo->getDateAbo()->format('d F Y')?></td>
                                     <td><?= $abo->getDescription() ?></td>
-                                    <td class="center"><a href="/abonnement/manage?id=<?= $abo->getId() ?>">Modifier</a>&emsp;&emsp;<input type="checkbox" name="abonnements[]" value="<?= $abo->getId() ?>"></td>
+                                    <td class="center"><a href="/abonnement/manage?id=<?= $abo->getNumero() ?>">Modifier</a>&emsp;&emsp;<input type="checkbox" name="abonnements[]" value="<?= $abo->getNumero() ?>"></td>
                                 </tr>
                             <?php } ?>
 

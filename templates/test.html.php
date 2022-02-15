@@ -1,2 +1,2 @@
-<?php 
-var_dump($myfile);
+<?php
+echo (new \DateTime())->format('my');
