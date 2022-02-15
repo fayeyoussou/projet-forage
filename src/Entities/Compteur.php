@@ -96,4 +96,15 @@ class Compteur {
     {
         $this->consommations = $consommations;
     }
+    public function getInfo () {
+        if($this->attribution === null){
+            return "compteur non attribues";
+        }
+        else return "Proprio : ".
+        $this->attribution->getAbonnement()->getHabitant()->getNom().
+        "<br>Abonnement :".$this->attribution->getAbonnement()->getNumero()."<br>cree :".
+        $this->attribution->getUser()->getPrenom()." ".
+        $this->attribution->getUser()->getNom().
+        "<br>date ".$this->attribution->getDateAttribution()->format('d-m-y');
+    }
 }

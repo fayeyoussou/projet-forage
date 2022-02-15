@@ -25,6 +25,11 @@ class Attribution {
      */
     private $abonnement;
     /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+    /**
      * @ORM\Column(type="date")
     */
     private $dateAttribution;
@@ -45,8 +50,23 @@ class Attribution {
     public function getAbonnement () {
         return $this->abonnement;
     }
+    
     public function setAbonnement($abonnement)
     {
         $this->abonnement = $abonnement;
+    }
+    public function getDateAttribution () {
+        return $this->dateAttribution;
+    }
+    public function setDateAttribution($dateAttribution)
+    {
+        $this->dateAttribution = $dateAttribution;
+    }
+    public function getUser () {
+        return $this->user;
+    }
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 }

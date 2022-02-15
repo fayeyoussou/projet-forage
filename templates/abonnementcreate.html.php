@@ -8,7 +8,7 @@
 
             <div class="control-group">
                 <div class="controls row-fluid">
-                    <input class="span12" type="date" placeholder="Nom du village" name="abonnement[date]" value="<?= isset($abonnement) ? $abonnement->getDate() : "" ?>">
+                    <input class="span12" type="date" placeholder="Nom du village" name="abonnement[date]" value="<?= isset($abonnement) ? $abonnement->getDateAbo()->format('Y-m-d') : "" ?>">
                 </div>
             </div>
             <?php if (isset($clients)) { ?>
@@ -19,7 +19,7 @@
 
                             <?php foreach ($clients as $client) { ?>
                                 <option value="<?= $client->getId() ?>" <?php
-                                                                        if (isset($village) && $village->getChefVillage() == $client) {
+                                                                        if (isset($abonnement) && $abonnement->getHabitant() == $client) {
                                                                             echo "selected";
                                                                         } ?>><?= $client->getNom() ?></option>
                             <?php } ?>
@@ -40,7 +40,7 @@
 
         </div>
         <?php if (isset($abonnement)) { ?>
-            <input type="hidden" value="<?= isset($abonnement) ? $abonnement->getId() : 0 ?>" name="abonnement[etat]"> <?php } ?>
+            <input type="hidden" value="<?= isset($abonnement) ? $abonnement->getNumero() : 0 ?>" name="abonnement[etat]"> <?php } ?>
         <div class="module-foot">
             <div class="control-group">
                 <div class="controls clearfix">

@@ -5,7 +5,7 @@
                 <h3>Liste des utilisateurs</h3>
             </div>
             <div class="module-body table">
-                <form class="form-vertical" method="POST" action="/abonnement/delete">
+                <form class="form-vertical" method="POST" action="<?=$role==''?'/abonnement/delete':'/compteur/assign'?>">
                     <table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
                         <thead>
                             <tr>
@@ -13,7 +13,7 @@
                                 <th>Nom abonnes</th>
                                 <th>Date abonnement</th>
                                 <th>Description</th>
-                                <th>Action</th>
+                                <th><?=$role=''?'Action':'Compteur'?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -27,7 +27,19 @@
                                     <td><?= $abo->getHabitant()->getNom()?></td>
                                     <td><?= $abo->getDateAbo()->format('d F Y')?></td>
                                     <td><?= $abo->getDescription() ?></td>
-                                    <td class="center"><a href="/abonnement/manage?id=<?= $abo->getNumero() ?>">Modifier</a>&emsp;&emsp;<input type="checkbox" name="abonnements[]" value="<?= $abo->getNumero() ?>"></td>
+                                    <td class="center"><?php if($role==='') { ?><a href="/abonnement/manage?id=<?= $abo->getNumero() ?>">Modifier</a>&emsp;&emsp;<input type="checkbox" name="abonnements[]" value="<?= $abo->getNumero() ?>"><?php } else if ($abo->getAttribution()===NULL){ ?>
+                                        
+                                        <select class="span2" name="attributions[<?=$abo->getNumero()?>]">
+                                        <option value="nothing">Ne rien Faire</option>
+                                            <?php
+                                                foreach ($compteurs as $cpt ) { ?>
+                                                    <option value="<?= $cpt->getNumero() ?>"><?= $cpt->getNumero()?></option>
+                                            <?php    }    ?>                                        
+                                            <option value="createnew">Creer</option>
+                                        </select>
+                                    
+                                    <?php } else echo  $abo->getAttribution()->getCompteur()->getNumero() ?>
+                                    </td>
                                 </tr>
                             <?php } ?>
 
@@ -44,7 +56,7 @@
                         </tfoot>
                     </table>
                     <br><br>
-                    <button type="submit" class="btn btn-primary pull-right">supprimer Les utilisateur Selectionnes</button>
+                    <button type="submit" class="btn btn-primary pull-right"><?=$role=''?'supprimer' : 'attribuer' ?></button>
                 </form>
             </div>
         </div>

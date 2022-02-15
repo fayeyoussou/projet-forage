@@ -13,7 +13,7 @@ class ForageRoutes implements \Youtech\Routes
     }
     public function checkPermission($permission): bool
     {
-        return $permission == ($this->authentication->getUser()->getRole()->getNom());
+        return in_array(($this->authentication->getUser()->getRole()->getNom()), $permission);
     }
     public function getRoutes(): array
     {
@@ -22,6 +22,7 @@ class ForageRoutes implements \Youtech\Routes
         $villageController = new \src\Forage\Controller\Village($this->em, $this->authentication->getUser());
         $clientController = new \src\Forage\Controller\Client($this->em, $this->authentication->getUser());
         $abonnementController = new \src\Forage\Controller\Abonnement($this->em, $this->authentication->getUser());
+        $compteurController = new \src\Forage\Controller\Compteur($this->em, $this->authentication->getUser());
         return [
             '' => [
                 'GET' => [
@@ -29,13 +30,13 @@ class ForageRoutes implements \Youtech\Routes
                     'action' => 'home'
                 ]
             ],
-            'home/dashboard'=>
+            'home/dashboard' =>
             [
-                'GET'=>[
-                    'controller'=>$default,
-                    'action'=>'dashboard'
+                'GET' => [
+                    'controller' => $default,
+                    'action' => 'dashboard'
                 ]
-                ],
+            ],
             'test/youssou' =>
             [
                 'POST' => [
@@ -78,6 +79,7 @@ class ForageRoutes implements \Youtech\Routes
                     'action' => 'userSubmit'
                 ],
                 'login' => true,
+                'user' => ['Admin']
             ],
             'user/list' =>
             [
@@ -86,7 +88,7 @@ class ForageRoutes implements \Youtech\Routes
                     'action' => 'list'
                 ],
                 'login' => true,
-                'user' => 'Admin'
+                'user' => ['Admin']
             ],
             'user/profil' => [
                 'GET' => [
@@ -100,7 +102,7 @@ class ForageRoutes implements \Youtech\Routes
                     'action' => 'delete'
                 ],
                 'login' => true,
-                'user' => 'Admin'
+                'user' => ['Admin']
             ],
             'user/logout' => [
                 'GET' => [
@@ -122,7 +124,7 @@ class ForageRoutes implements \Youtech\Routes
                     'action' => 'submitvillage'
                 ],
                 'login' => true,
-                'user' => 'Gestionnaire Clientele'
+                'user' => ['Gestionnaire Clientele']
             ],
             'village/list' => [
                 'GET' => [
@@ -130,7 +132,7 @@ class ForageRoutes implements \Youtech\Routes
                     'action' => 'listervillage'
                 ],
                 'login' => true,
-                'user' => 'Gestionnaire Clientele'
+                'user' => ['Gestionnaire Clientele']
             ],
             'village/delete' => [
                 'POST' => [
@@ -138,7 +140,7 @@ class ForageRoutes implements \Youtech\Routes
                     'action' => 'delete'
                 ],
                 'login' => true,
-                'user' => 'Gestionnaire Clientele'
+                'user' => ['Gestionnaire Clientele']
             ],
 
 
@@ -152,7 +154,7 @@ class ForageRoutes implements \Youtech\Routes
                     'action' => 'clientSubmit'
                 ],
                 'login' => true,
-                'user' => 'Gestionnaire Clientele'
+                'user' => ['Gestionnaire Clientele']
             ],
             'client/list' => [
                 'GET' => [
@@ -160,47 +162,76 @@ class ForageRoutes implements \Youtech\Routes
                     'action' => 'list'
                 ],
                 'login' => true,
-                'user' => 'Gestionnaire Clientele'
+                'user' => ['Gestionnaire Clientele']
             ],
 
 
             'abonnement/manage' => [
-                'GET'=>[
-                    'controller'=>$abonnementController,
-                    'action'=> 'createabonnement'
+                'GET' => [
+                    'controller' => $abonnementController,
+                    'action' => 'createabonnement'
                 ],
-                'POST'=> [
-                    'controller'=>$abonnementController,
-                    'action'=> 'abonnementSubmit'
-                ],
-                'login' => true,
-                'user' => 'Gestionnaire Clientele'
-            ],
-            'abonnement/list'=> [
-                'GET'=>[
-                    'controller'=>$abonnementController,
-                    'action'=>'list'
+                'POST' => [
+                    'controller' => $abonnementController,
+                    'action' => 'abonnementSubmit'
                 ],
                 'login' => true,
-                'user' => 'Gestionnaire Clientele'
+                'user' => ['Gestionnaire Clientele']
             ],
-            'abonnement/delete'=>
+            'abonnement/list' => [
+                'GET' => [
+                    'controller' => $abonnementController,
+                    'action' => 'list'
+                ],
+                'login' => true,
+                'user' => ['Gestionnaire Clientele', 'Gestionnaire Compteur']
+            ],
+            'abonnement/delete' =>
             [
-                'POST'=> [
-                    'controller'=>$abonnementController,
+                'POST' => [
+                    'controller' => $abonnementController,
+                    'action' => 'delete'
+                ],
+                'login' => true,
+                'user' => ['Gestionnaire Clientele']
+            ],
+
+
+
+            'compteur/new' => [
+                'GET' => [
+                    'controller' => $compteurController,
+                    'action' => 'addnew'
+                ],
+                'login' => true,
+                'user' => ['Gestionnaire Compteur']
+            ],
+            'compteur/assign' =>
+            [
+                'POST' => [
+                    'controller' => $compteurController,
+                    'action' => 'attribuer'
+                ],
+                'login' => true,
+                'user' => ['Gestionnaire Compteur']
+            ],
+            'compteur/list'=>[
+                'GET'=> [
+                    'controller' => $compteurController,
+                    'action'=> 'list'
+                ],
+                'login' => true,
+                'user' => ['Gestionnaire Compteur']
+            ],
+            'compteurs/delete'=>[
+                'POST'=>[
+                    'controller'=>$compteurController,
                     'action'=>'delete'
                 ],
                 'login' => true,
-                'user' => 'Gestionnaire Clientele'
+                'user' => ['Gestionnaire Compteur']
             ],
 
-
-
-            'compteur/manage'=>[
-                'GET'=>[
-                    'controller'
-                ]
-            ],
 
 
             'permission/error' => [

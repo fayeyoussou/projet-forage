@@ -31,7 +31,7 @@ class Numero {
         $this->nom = $nom;
     }
     public function getNumero () {
-        return $this->numero;
+        return ++$this->numero;
     }
     public function setNumero($numero)
     {

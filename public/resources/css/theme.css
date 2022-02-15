@@ -1759,7 +1759,10 @@ input[type=submit].btn-block {
 .message .table-message tbody td.cell-check input[type="checkbox"] {
 	margin: 0
 }
-
+.btnd{
+	margin-left: 20%;
+	margin-right:20%;
+}
 .message .table-message tbody td.cell-icon {
 	text-align: center;
 	padding-left: 0 !important;
