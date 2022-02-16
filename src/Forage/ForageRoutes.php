@@ -23,6 +23,8 @@ class ForageRoutes implements \Youtech\Routes
         $clientController = new \src\Forage\Controller\Client($this->em, $this->authentication->getUser());
         $abonnementController = new \src\Forage\Controller\Abonnement($this->em, $this->authentication->getUser());
         $compteurController = new \src\Forage\Controller\Compteur($this->em, $this->authentication->getUser());
+        $consommationController = new \src\Forage\Controller\Consommation($this->em,$this->authentication->getUser());
+        $factureController = new \src\Forage\Controller\Facture($this->em,$this->authentication->getUser());
         return [
             '' => [
                 'GET' => [
@@ -221,7 +223,7 @@ class ForageRoutes implements \Youtech\Routes
                     'action'=> 'list'
                 ],
                 'login' => true,
-                'user' => ['Gestionnaire Compteur']
+                'user' => ['Gestionnaire Compteur','Gestionnaire Commercial']
             ],
             'compteurs/delete'=>[
                 'POST'=>[
@@ -232,6 +234,40 @@ class ForageRoutes implements \Youtech\Routes
                 'user' => ['Gestionnaire Compteur']
             ],
 
+
+
+            'compteur/consommation'=>
+            [
+                'GET'=>[
+                    'controller'=>$consommationController,
+                    'action' => 'toList'
+                ],
+                'login'=> true,
+                'user'=> ['Gestionnaire Commercial']
+            ],
+            'consommation/add'=>[
+                'GET'=>[
+                    'controller'=>$consommationController,
+                    'action'=> 'addCForm'
+                ],
+                'POST'=>[
+                    'controller'=>$consommationController,
+                    'action'=> 'valideC'
+                ]
+                ,
+                'login'=> true,
+                'user'=> ['Gestionnaire Commercial']
+            ],
+
+
+            'facture/generate'=>[
+                'POST'=>[
+                    'controller'=> $factureController,
+                    'action'=> 'generateFacture'
+                ],
+                'login'=> true,
+                'user'=> ['Gestionnaire Commercial']
+            ],
 
 
             'permission/error' => [

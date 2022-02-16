@@ -40,13 +40,14 @@ class Facture {
      */
     private $user;
     /**
-     * Many features have one product. This is the owning side.
-     * @ORM\ManyToOne(targetEntity="Consommation", inversedBy="facture")
+     * One Cart has One Customer.
+     * @ORM\OneToOne(targetEntity="Consommation", inversedBy="facture")
      * @ORM\JoinColumn(name="consommation_id", referencedColumnName="id")
      */
-    private $consommations;
+    private $consommation;
     public function __construct () {
-        $this->consommations = new ArrayCollection ();
+        // $this->consommation = new ArrayCollection ();
+        $this->etat = 1;
     }
     public function getNumero () {
         return $this->numero;
@@ -90,11 +91,11 @@ class Facture {
     {
         $this->reglement = $reglement;
     }
-    public function getConsommations () {
-        return $this->consommations;
+    public function getConsommation () {
+        return $this->consommation;
     }
-    public function setConsommations($consommations)
+    public function setConsommation($consommation)
     {
-        $this->consommations = $consommations;
+        $this->consommation = $consommation;
     }
 }

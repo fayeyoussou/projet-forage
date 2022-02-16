@@ -32,9 +32,9 @@ class Abonnement {
      */
     private $habitant;
     /**
-     * One Cart has One Customer.
-     * @ORM\OneToOne(targetEntity="Attribution", inversedBy="abonnement")
-     * @ORM\JoinColumn(name="attribution_id", referencedColumnName="id")
+     * One Village has chef.
+     * @ORM\OneToOne(targetEntity="Attribution")
+     * @ORM\JoinColumn(name="id_attribution", referencedColumnName="id", nullable=true)
      */
     private $attribution;
     /**
@@ -87,7 +87,7 @@ class Abonnement {
         $this->habitant = $habitant;
     }
     public function getAttribution () {
-        return $this->attribution;
+        return isset($this->attribution)?$this->attribution: NULL;
     }
     public function setAttribution($attribution)
     {

@@ -18,10 +18,6 @@ class Compteur {
     /**
      * @ORM\Column(type="integer")
     */
-    private $cumul;
-    /**
-     * @ORM\Column(type="integer")
-    */
     private $lastCumul;
     /**
      * @ORM\ManyToOne(targetEntity="User")
@@ -29,9 +25,9 @@ class Compteur {
      */
     private $user;
     /**
-     * One Cart has One Customer.
-     * @ORM\OneToOne(targetEntity="Attribution", inversedBy="compteur")
-     * @ORM\JoinColumn(name="attribution_id", referencedColumnName="id")
+     * One Village has chef.
+     * @ORM\OneToOne(targetEntity="Attribution")
+     * @ORM\JoinColumn(name="id_attribution", referencedColumnName="id", nullable=true)
      */
     private $attribution;
     /**
@@ -68,13 +64,7 @@ class Compteur {
     {
         $this->user = $user;
     }
-    public function getCumul () {
-        return $this->cumul;
-    }
-    public function setCumul($cumul)
-    {
-        $this->cumul = $cumul;
-    }
+    
     public function getLastCumul () {
         return $this->lastCumul;
     }

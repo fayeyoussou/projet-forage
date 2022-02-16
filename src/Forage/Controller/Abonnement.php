@@ -44,14 +44,7 @@ class Abonnement extends Numero
         else {
             $abo = new \Abonnement();
             $abo->setUser($this->user);
-            $num = $this->em->find('Numero', 'abo');
-            $periode = (new \DateTime())->format('ym');
-            if (!$num->getPeriode() == $periode) {
-                $num->setNumero(0);
-                $num->setPeriode($periode);
-            }
-            $num->setNumero($num->getNumero() + 1);
-            $abo->setNumero('AB' . $periode . sprintf("%04d", $num->getNumero()));
+            $abo->setNumero($this->generateNumero('Abonnement'));
         }
         $datetime = new \DateTime($abonnement['date']);
         $abo->setDateAbo($datetime);
@@ -69,10 +62,18 @@ class Abonnement extends Numero
     }
     public function list()
     {
+        try {
+            //code...
+        
         $role = '';
         extract($_GET);
         if($this->user->getRole()->getNom()==='Gestionnaire Compteur') {
-            $compeurNA = $this->em->getRepository('Compteur')->findBy(array('attribution'=>NULL));
+            $compeurNA = $this->em->createQuery("
+            SELECT u
+            FROM Compteur u
+            WHERE u.etat !='deleted' and u.attribution is null
+            
+            ")->getResult();
             $role = 'gcpt';
         }
         $abonnements = isset($_GET['id']) ?
@@ -83,11 +84,14 @@ class Abonnement extends Numero
             'title' => 'liste des abonnements',
             'variables' => [
                 'abonnements' => $abonnements,
-                'compteurs' => $compeurNA,
-                'role'=> $role
+                'compteurs' => $compeurNA??NULL,
+                'role'=> $role??''
 
             ]
         ];
+    } catch (\Exception $e) {
+        echo $e;
+    }
     }
     public function delete()
     {

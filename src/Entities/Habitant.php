@@ -28,7 +28,7 @@ class Habitant {
     private $telephone;
     /**
      * One Village has chef.
-     * @ORM\OneToOne(targetEntity="Village")
+     * @ORM\ManyToOne(targetEntity="Village")
      * @ORM\JoinColumn(name="village", referencedColumnName="id")
      */
     private $village;

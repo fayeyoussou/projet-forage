@@ -30,10 +30,15 @@ class Client
     }
     public function clientSubmit()
     {
+        try {
         extract($_POST);
-        var_dump($client);
-        if (isset($client['etat'])) $clientToSet = $this->em->find('Habitant', $client['etat']);
+        // var_dump($client);
+        if (isset($client['etat'])) {
+            echo "<br>la bas";
+            $clientToSet = $this->em->find('Habitant', $client['etat']);
+        }
         else {
+            echo "<br>ici";
             $clientToSet = new \Habitant();
             $clientToSet->setUser($this->user);
         }
@@ -42,9 +47,17 @@ class Client
         $clientToSet->setNom($client['nom']);
         $clientToSet->setVillage($this->em->find('Village', $client['village']));
         $clientToSet->setEtat(1);
-        if (!isset($client['etat'])) $this->em->persist($clientToSet);
+        if (!isset($client['etat'])) {
+            $this->em->persist($clientToSet);
+            echo "<br>persist called<br>";
+        }
+        // var_dump($clientToSet);
         $this->em->flush();
-        header('location: /client/list');       
+        echo $clientToSet->getId();
+        header('location: /client/list');}
+        catch (\Exception $e) {
+            echo "Exception : <br>-----------------------------<br>".$e;
+        }      
     }
     public function list()
     {

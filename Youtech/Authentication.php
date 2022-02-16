@@ -71,14 +71,14 @@ class Authentication
     {
         if (empty($_SESSION['user'])) {
             return false;
-            return "session_vide";
+            // return "session_vide";
         }
         extract($this->getter());
         $this->user = $this->em->getRepository($this->objectName)->$selectByOneUser($_SESSION['user']);
-        $password = $this->user->$selectPassword();
+        // $password = $this->user->$selectPassword();
         if (
             !empty($this->user) &&
-            $password === $_SESSION['password'] &&
+            $this->user->$selectPassword() === $_SESSION['password'] &&
             (
                 isset($this->stateCol['true']) ||
                 $this->user->$etatC() == $this->stateCol['true']

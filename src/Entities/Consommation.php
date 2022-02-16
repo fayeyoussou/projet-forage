@@ -16,7 +16,11 @@ class Consommation {
     /**
      * @ORM\Column(type="string")
     */
-    private $dateConsommation;
+    private $periode;
+    /**
+     * @ORM\Column(type="integer")
+    */
+    private $cumul;
     /**
      * @ORM\Column(type="integer")
     */
@@ -33,8 +37,8 @@ class Consommation {
      */
     private $compteur;
     /**
-     * One product has many features. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="Facture", mappedBy="consommation")
+     * One Customer has One Cart.
+     * @ORM\OneToOne(targetEntity="Facture", mappedBy="consommation")
      */
     private $facture;
     /**
@@ -43,7 +47,8 @@ class Consommation {
     
     private $etat;
     public function __construct () {
-
+        $this->etat = 1;
+        $this->periode = (new \DateTime())->format('my');
     }
     public function getId () {
         return $this->id;
@@ -66,12 +71,12 @@ class Consommation {
     {
         $this->user = $user;
     }
-    public function getDateConsommation () {
-        return $this->dateConsommation;
+    public function getPeriode () {
+        return $this->periode;
     }
-    public function setDateConsommation($dateConsommation)
+    public function setPeriode($periode)
     {
-        $this->dateConsommation = $dateConsommation;
+        $this->periode = $periode;
     }
     public function getQuantite () {
         return $this->quantite;
@@ -93,5 +98,12 @@ class Consommation {
     public function setFacture($facture)
     {
         $this->facture = $facture;
+    }
+    public function getCumul () {
+        return $this->cumul;
+    }
+    public function setCumul($cumul)
+    {
+        $this->cumul = $cumul;
     }
 }

@@ -13,17 +13,17 @@ class Attribution {
     */
     private $id;
     /**
-     * One Product has One Shipment.
-     * @ORM\OneToOne(targetEntity="Compteur")
+     * One Village has chef.
+     * @ORM\ManyToOne(targetEntity="Compteur")
      * @ORM\JoinColumn(name="numero_compteur", referencedColumnName="numero")
      */
-    private $compteur;
+    private Compteur $compteur;
     /**
-     * One Product has One Shipment.
-     * @ORM\OneToOne(targetEntity="Abonnement")
+     * One Village has chef.
+     * @ORM\ManyToOne(targetEntity="Abonnement")
      * @ORM\JoinColumn(name="numero_abonnement", referencedColumnName="numero")
      */
-    private $abonnement;
+    private Abonnement $abonnement;
     /**
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -33,6 +33,15 @@ class Attribution {
      * @ORM\Column(type="date")
     */
     private $dateAttribution;
+    /**
+     * @ORM\Column(type="boolean",options={"default": 1})
+    */
+    private $etat;
+    public function __construct()
+    {
+        $this->etat = 1;
+        $this->dateAttribution = new \DateTime();
+    }
     public function getId () {
         return $this->id;
     }
@@ -68,5 +77,12 @@ class Attribution {
     public function setUser($user)
     {
         $this->user = $user;
+    }
+    public function getEtat () {
+        return $this->etat;
+    }
+    public function sEtetat($etat)
+    {
+        $this->etat = $etat;
     }
 }

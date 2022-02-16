@@ -13,7 +13,7 @@
                                 <th>Nom abonnes</th>
                                 <th>Date abonnement</th>
                                 <th>Description</th>
-                                <th><?=$role=''?'Action':'Compteur'?></th>
+                                <th><?=$role==''?'Action':'Compteur'?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,11 +47,11 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>numero abonnes</th>
+                            <th>numero abonnes</th>
                                 <th>Nom abonnes</th>
                                 <th>Date abonnement</th>
                                 <th>Description</th>
-                                <th>Action</th>
+                                <th><?=$role==''?'Action':'Compteur'?></th>
                             </tr>
                         </tfoot>
                     </table>

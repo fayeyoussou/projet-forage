@@ -5,7 +5,7 @@
                 <h3>Liste des utilisateurs</h3>
             </div>
             <div class="module-body table">
-                <form class="form-vertical" method="POST" action="/compteurs/delete">
+            <?php if($roles=='') { ?><form class="form-vertical" method="POST" action="/compteurs/delete"> <?php } ?>
                     <table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
                         <thead>
                             <tr>
@@ -25,9 +25,9 @@
 
                                     <td><?= $cpt->getNumero() ?></td>
                                     <td><?= $cpt->getInfo()?></td>
-                                    <td><?= "[".$cpt->getCumul()." - ".$cpt->getLastCumul()."]" ?></td>
+                                    <td><?= $cpt->getLastCumul()?></td>
                                     <td><?= $cpt->getEtat() ?></td>
-                                    <td class="center"><a href="/compteur/consommation?id=<?= $cpt->getNumero() ?>">Consommation</a>&emsp;&emsp;<input type="checkbox" name="compteurs[]" value="<?= $cpt->getNumero() ?>"></td>
+                                    <td class="center"><?=$roles!=''?'<a href="/compteur/consommation?id='.$cpt->getNumero().'">Consommation</a>'     :     '<input type="checkbox" name="compteurs[]" value="'.$cpt->getNumero().'">'?>   </td>
                                 </tr>
                             <?php } ?>
 
@@ -44,8 +44,10 @@
                         </tfoot>
                     </table>
                     <br><br>
+                    <?php if($roles=='') { ?>
                     <button type="submit" class="btn btn-primary pull-right">supprimer compteur</button>
-                </form>
+                    
+                </form> <?php } ?>
             </div>
         </div>
         <!--/.module-->
