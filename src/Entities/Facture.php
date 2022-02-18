@@ -21,7 +21,7 @@ class Facture {
     */
     private $montantFacture;
     /**
-     * @ORM\Column(type="string",length="4")
+     * @ORM\Column(type="date")
     */
     private $dateFacture;
     /**

@@ -26,7 +26,7 @@
         <div class="navbar-inner">
             <div class="container">
                 <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
-                    <i class="icon-reorder shaded"></i></a><a class="brand" href="index.html">Sen Forage </a>
+                    <i class="icon-reorder shaded"></i></a><a class="brand" href="/"><img src="/resources/images/logo.png" class="logo-avatar"></a>
                 <div class="nav-collapse collapse navbar-inverse-collapse">
 
                     <?php if (isset($log)) { ?>

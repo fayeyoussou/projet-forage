@@ -38,9 +38,9 @@
                                                 <input type="checkbox" name="consommations[]" value="<?= $consommation->getId() ?>"> 
                                                 <?php 
                                             } 
-                                            else 
-                                                $consommation->getFacture()->getNumero();
-                                                ?>
+                                            else { ?>
+                                                <a href="facture/print?id=<?=$consommation->getFacture()->getNumero()?>"><?=$consommation->getFacture()->getNumero()?></a>
+                                                <?php } ?>
                                         </td>
                                     </tr>
                                 <?php } ?>

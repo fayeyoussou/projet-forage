@@ -433,7 +433,15 @@ body [class*=" icon-"] {
 	-moz-border-radius: 50%;
 	border-radius: 50%
 }
-
+.logo-avatar {
+	/* background: grey; */
+	width: 104px;
+	height: auto;
+	margin: -7px 5px 0 0;
+	/* -webkit-border-radius: 50%; */
+	/* -moz-border-radius: 50%; */
+	/* border-radius: 50%; */
+}
 .dropdown-menu {
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;

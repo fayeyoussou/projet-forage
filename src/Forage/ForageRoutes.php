@@ -268,6 +268,12 @@ class ForageRoutes implements \Youtech\Routes
                 'login'=> true,
                 'user'=> ['Gestionnaire Commercial']
             ],
+            'facture/print'=>[
+                'GET'=>[
+                    'controller'=>$factureController,
+                    'action'=>'printFacture'
+                ]
+            ],
 
 
             'permission/error' => [
