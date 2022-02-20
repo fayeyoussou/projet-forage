@@ -23,8 +23,8 @@ class ForageRoutes implements \Youtech\Routes
         $clientController = new \src\Forage\Controller\Client($this->em, $this->authentication->getUser());
         $abonnementController = new \src\Forage\Controller\Abonnement($this->em, $this->authentication->getUser());
         $compteurController = new \src\Forage\Controller\Compteur($this->em, $this->authentication->getUser());
-        $consommationController = new \src\Forage\Controller\Consommation($this->em,$this->authentication->getUser());
-        $factureController = new \src\Forage\Controller\Facture($this->em,$this->authentication->getUser());
+        $consommationController = new \src\Forage\Controller\Consommation($this->em, $this->authentication->getUser());
+        $factureController = new \src\Forage\Controller\Facture($this->em, $this->authentication->getUser());
         return [
             '' => [
                 'GET' => [
@@ -217,18 +217,18 @@ class ForageRoutes implements \Youtech\Routes
                 'login' => true,
                 'user' => ['Gestionnaire Compteur']
             ],
-            'compteur/list'=>[
-                'GET'=> [
+            'compteur/list' => [
+                'GET' => [
                     'controller' => $compteurController,
-                    'action'=> 'list'
+                    'action' => 'list'
                 ],
                 'login' => true,
-                'user' => ['Gestionnaire Compteur','Gestionnaire Commercial']
+                'user' => ['Gestionnaire Compteur', 'Gestionnaire Commercial']
             ],
-            'compteurs/delete'=>[
-                'POST'=>[
-                    'controller'=>$compteurController,
-                    'action'=>'delete'
+            'compteurs/delete' => [
+                'POST' => [
+                    'controller' => $compteurController,
+                    'action' => 'delete'
                 ],
                 'login' => true,
                 'user' => ['Gestionnaire Compteur']
@@ -236,51 +236,60 @@ class ForageRoutes implements \Youtech\Routes
 
 
 
-            'compteur/consommation'=>
+            'compteur/consommation' =>
             [
-                'GET'=>[
-                    'controller'=>$consommationController,
+                'GET' => [
+                    'controller' => $consommationController,
                     'action' => 'toList'
                 ],
-                'login'=> true,
-                'user'=> ['Gestionnaire Commercial']
+                'login' => true,
+                'user' => ['Gestionnaire Commercial']
             ],
-            'consommation/add'=>[
-                'GET'=>[
-                    'controller'=>$consommationController,
-                    'action'=> 'addCForm'
+            'consommation/add' => [
+                'GET' => [
+                    'controller' => $consommationController,
+                    'action' => 'addCForm'
                 ],
-                'POST'=>[
-                    'controller'=>$consommationController,
-                    'action'=> 'valideC'
-                ]
-                ,
-                'login'=> true,
-                'user'=> ['Gestionnaire Commercial']
-            ],
-
-
-            'facture/generate'=>[
-                'POST'=>[
-                    'controller'=> $factureController,
-                    'action'=> 'generateFacture'
+                'POST' => [
+                    'controller' => $consommationController,
+                    'action' => 'valideC'
                 ],
-                'login'=> true,
-                'user'=> ['Gestionnaire Commercial']
-            ],
-            'facture/print'=>[
-                'GET'=>[
-                    'controller'=>$factureController,
-                    'action'=>'printFacture'
-                ]
+                'login' => true,
+                'user' => ['Gestionnaire Commercial']
             ],
 
+
+            'facture/generate' => [
+                'POST' => [
+                    'controller' => $factureController,
+                    'action' => 'generateFacture'
+                ],
+                'login' => true,
+                'user' => ['Gestionnaire Commercial']
+            ],
+            'facture/print' => [
+                'GET' => [
+                    'controller' => $factureController,
+                    'action' => 'printFacture'
+                ]
+            ],
+            'reglement/manage' => [
+                'GET' => [
+                    'controller' => $factureController,
+                    'action' => 'listFacture'
+                ],
+                'POST' =>
+                [
+                    'controller' => $factureController,
+                    'action' => 'reglementSummary'
+                ]
+            ],
 
             'permission/error' => [
                 'GET' => [
                     'controller' => $default,
                     'action' => 'PermissionError'
-                ]
+                ],
             ],
 
         ];

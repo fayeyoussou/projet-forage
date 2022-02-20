@@ -39,7 +39,7 @@
                                                 <?php 
                                             } 
                                             else { ?>
-                                                <a href="facture/print?id=<?=$consommation->getFacture()->getNumero()?>"><?=$consommation->getFacture()->getNumero()?></a>
+                                                <a href="/facture/print?id=<?=$consommation->getFacture()->getNumero()?>"><?=$consommation->getFacture()->getNumero()?></a>
                                                 <?php } ?>
                                         </td>
                                     </tr>
