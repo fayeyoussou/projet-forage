@@ -30,6 +30,7 @@ class Facture extends Numero
                     $facture->setUser($this->user);
                     $this->em->persist($facture);
                     $this->em->flush();
+                    header('location: /facture/print?id=' . $facture->getNumero());
                 }
             }
         } catch (\Exception $e) {
@@ -37,35 +38,75 @@ class Facture extends Numero
         }
         // header('location: /facture/list');
     }
-    public function printFacture() {
-        if(isset($_GET['id'])){
+    public function printFacture()
+    {
+        if (isset($_GET['id'])) {
 
-            $facture = $this->em->find('Facture',$_GET['id']);
-            $pdf = new \src\Utility\Pdf('p','mm','A4',true,'UTF-8',false);
-            $pdf->showFacture($facture,$this->user);
-        } else header('location: /compteur/list');    
+            $facture = $this->em->find('Facture', $_GET['id']);
+            $pdf = new \src\Utility\Pdf('p', 'mm', 'A4', true, 'UTF-8', false);
+            $pdf->docType = "A4";
+            $pdf->showFacture($facture, $this->user);
+        } else header('location: /compteur/list');
     }
-    public function listFacture() {
-        $facture = $this->em->getRepository('Facture')->findBy(array('reglement'=>NULL,'etat'=>1));
+    public function listFacture()
+    {
+        $facture = $this->em->getRepository('Facture')->findBy(array('reglement' => NULL, 'etat' => 1));
         return [
-            'template'=>'listefacture.html.php',
-            'title'=> 'liste des reglements',
-            'variables'=>[
-                'factures'=> $facture
-            ]
-            ];
-    }
-    private function updateCompteur() {
-        
-    }
-    public function reglementSummary() {
-        extract($_POST);
-        return [
-            'template'=> 'sommaireReglement.html.php',
-            'title' => 'sommaire reglement',
-            'variables'=> [
-                'factures'=> $factures
+            'template' => 'listefacture.html.php',
+            'title' => 'liste des reglements',
+            'variables' => [
+                'factures' => $facture
             ]
         ];
+    }
+    private function updateCompteur()
+    {
+    }
+    public function reglementSummary()
+    {
+        extract($_POST);
+        if (count($factures) > 0) {
+            for ($i = 0; $i  < count($factures); $i++) {
+                $factures[$i] = $this->em->find('Facture', $factures[$i]);
+            }
+            return [
+                'template' => 'sommaireReglement.html.php',
+                'title' => 'sommaire reglement',
+                'variables' => [
+                    'factures' => $factures
+                ]
+            ];
+        } else header('location: reglement/manage');
+    }
+
+    public function creerReglement()
+    {
+        // var_dump($_POST);
+        try {
+            extract($_POST);
+            // var_dump($factures);
+            $reglement = new \Reglement();
+            $reglement->setUser($this->user);
+            $reglement->setNumero($this->generateNumero('Facture'));
+            foreach ($factures as $key => $value) {
+                $facture = $this->em->find('Facture', $key);
+                $facture->setReglement($reglement);
+            }
+            $this->em->persist($reglement);
+            $this->em->flush();
+            $pdf = new \src\Utility\Pdf('p', 'mm', 'A7', true, 'UTF-8', false);
+            $pdf->docType = "A7";
+            $pdf->showReglement($this->em->find('Reglement', $reglement->getNumero()), $this->user);
+        } catch (\Exception $e) {
+            echo "Err : <br>" . $e;
+        }
+    }
+
+    public function printReglement(){
+        if (isset($_GET['id'])) {
+            $pdf = new \src\Utility\Pdf('p', 'mm', 'A7', true, 'UTF-8', false);
+            $pdf->docType = "A7";
+            $pdf->showReglement($this->em->find('Reglement', $_GET['id']));
+        }
     }
 }

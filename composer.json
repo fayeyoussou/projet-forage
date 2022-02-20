@@ -6,8 +6,8 @@
         "symfony/cache": "^6.0",
         "doctrine/annotations": "^1.13",
         "setasign/fpdi": "^2.3",
-        "setasign/fpdf": "^1.8",
-        "tecnickcom/tcpdf": "^6.4"
+        "tecnickcom/tcpdf": "^6.4",
+        "setasign/fpdf": "^1.8"
     },
     "autoload": {
         "psr-0": {"": "src/entities/"}

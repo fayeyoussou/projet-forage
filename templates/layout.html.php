@@ -53,11 +53,9 @@
     <div class="wrapper">
         <div class="container">
             <div class="row">
-                <?=$sidebar?>
-                <?php echo $output; ?>
-
+                <?= $sidebar ?>
+                <?= $output ?>
             </div>
-
         </div>
         <!--/.container-->
     </div>

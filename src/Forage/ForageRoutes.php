@@ -284,6 +284,16 @@ class ForageRoutes implements \Youtech\Routes
                     'action' => 'reglementSummary'
                 ]
             ],
+            'reglement/print'=>[
+                'POST'=>[
+                    'controller'=> $factureController,
+                    'action'=> 'creerReglement'
+                ],
+                'GET'=>[
+                    'controller'=>$factureController,
+                    'action'=> 'printReglement'
+                ]
+            ],
 
             'permission/error' => [
                 'GET' => [

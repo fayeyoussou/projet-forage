@@ -20,10 +20,6 @@ class Reglement {
     */
     private $dateReglement;
     /**
-     * @ORM\Column(type="integer")
-    */
-    private $montantReglement;
-    /**
      * One product has many features. This is the inverse side.
      * @ORM\OneToMany(targetEntity="Facture", mappedBy="reglement")
      */
@@ -39,6 +35,8 @@ class Reglement {
     private $etat;
     public function __construct () {
         $this->factures = new ArrayCollection ();
+        $this->dateReglement = new \DateTime();
+        $this->etat = 1;
     }
     public function getNumero () {
         return $this->numero;
