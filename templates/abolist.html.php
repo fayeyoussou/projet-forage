@@ -2,7 +2,7 @@
     <div class="content">
         <div class="module">
             <div class="module-head">
-                <h3>Liste des utilisateurs</h3>
+                <h3>Liste des Abonnement</h3>
             </div>
             <div class="module-body table">
                 <form class="form-vertical" method="POST" action="<?=$role==''?'/abonnement/delete':'/compteur/assign'?>">
@@ -56,7 +56,7 @@
                         </tfoot>
                     </table>
                     <br><br>
-                    <button type="submit" class="btn btn-primary pull-right"><?=$role=''?'supprimer' : 'attribuer' ?></button>
+                    <button type="submit" class="btn btn-primary pull-right"><?=$role==''?'supprimer' : 'attribuer' ?></button>
                 </form>
             </div>
         </div>

@@ -2,7 +2,7 @@
     <div class="content">
         <div class="module">
             <div class="module-head">
-                <h3>Liste des utilisateurs</h3>
+                <h3>Liste des villages</h3>
             </div>
             <div class="module-body table">
                 <form class="form-vertical" method="POST" action="/village/delete">
@@ -46,7 +46,7 @@
                         </tfoot>
                     </table>
                     <br><br>
-                    <button type="submit" class="btn btn-primary pull-right">supprimer Les utilisateur Selectionnes</button>
+                    <button type="submit" class="btn btn-primary pull-right">supprimer Les villages selectionnes</button>
                 </form>
             </div>
         </div>

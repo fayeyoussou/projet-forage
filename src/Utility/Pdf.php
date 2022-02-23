@@ -58,7 +58,6 @@ class Pdf extends Fpdi
         $abo = $compt->getAttribution()->getAbonnement();
         $client = $abo->getHabitant();
         $per = $cons->getPeriode();
-        substr($per, 2, 2);
         $an = substr((new \DateTime())->format('Y'), 0, 2);
         $date = new \DateTime($an . substr($per, 2, 2) . "-" . substr($per, 0, 2) . "-05");
         $date->add(new \DateInterval('P1M'));
@@ -158,11 +157,17 @@ class Pdf extends Fpdi
         $str = new ChiffreEnLettres();
         $this->setFont('notese', 'R', '6');
         $this->setFontSpacing(-0.1);
+        try{
 
-        $str = $str->Conversion($sommes + 1 - 1);
-        $this->Ln();
-        $this->Cell(55, 5,$str." Frs", 0, 0,"R");
-        $this->output();
+            $str = $str->Conversion($sommes + 1 - 1);
+            $this->Ln();
+            $this->Cell(55, 5,$str." Frs", 0, 0,"R");
+        } catch(\Exception $e) {
+
+        } finally {
+
+            $this->output();
+        }
 
     }
 }

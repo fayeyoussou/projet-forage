@@ -2,7 +2,7 @@
     <div class="content">
         <div class="module">
             <div class="module-head">
-                <h3>Liste des utilisateurs</h3>
+                <h3>Liste des compteurs</h3>
             </div>
             <div class="module-body table">
             <?php if($roles=='') { ?><form class="form-vertical" method="POST" action="/compteurs/delete"> <?php } ?>
