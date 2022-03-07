@@ -12,7 +12,7 @@ try {
     // les classes sans faires d'includes
     include __DIR__ . '/../bootstrap.php';
     include __DIR__ . '/../config/autoload.php';
-    $con = (new \src\Utility\ChiffreEnLettres())->Conversion(345);
+    // $con = (new \src\Utility\ChiffreEnLettres())->Conversion(345);
     // echo "----------------------------------------------------".$con;
     /**
      * Commence a charger a partir du premier / et se termine a 

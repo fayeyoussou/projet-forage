@@ -21,7 +21,7 @@ $conn = array(
     'driver' => 'pdo_mysql',
     'host' => '127.0.0.1',
     'user' => 'root',
-    'password' => 'mamico91',
+    'password' => '',
     'dbname' =>'sen_forage_db',
 );
 
