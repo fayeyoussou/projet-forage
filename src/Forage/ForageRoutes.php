@@ -233,9 +233,6 @@ class ForageRoutes implements \Youtech\Routes
                 'login' => true,
                 'user' => ['Gestionnaire Compteur']
             ],
-
-
-
             'compteur/consommation' =>
             [
                 'GET' => [
