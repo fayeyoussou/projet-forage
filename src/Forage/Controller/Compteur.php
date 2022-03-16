@@ -8,6 +8,7 @@ class Compteur extends Numero
     public function __construct($em, $user)
     {
         parent::__construct($em, $user);
+        $this->updateCompteur();
     }
     public function newcpt()
     {
@@ -32,9 +33,7 @@ class Compteur extends Numero
         ];
     }
 
-    private function updateCompteur () {
-
-    }
+    
     public function attribuer()
     {
         extract($_POST);

@@ -26,10 +26,10 @@ class Forage {
     }
     public function dashboard() {
         return [
-            'template'=>'test.html.php',
+            'template'=>'dashboard.html.php',
             'title'=>'dashboard',
             'variables'=>[
-                'myfile'=> 'empty for now'
+                'user' => $this->authentication->getUser(),
             ]
         ];
     }

@@ -7,6 +7,7 @@ class Consommation extends Numero {
     public function __construct($em,$user)
     {
         parent::__construct($em,$user);
+        $this->updateCompteur();
     }
     public function toList($id){
         // try{
@@ -34,8 +35,8 @@ class Consommation extends Numero {
         ];
         
     }
-    public function addCForm () {
-        $cpt = $this->em->find('Compteur',$_GET['id']);
+    public function addCForm ($id) {
+        $cpt = $this->em->find('Compteur',$id);
         return [
             'template'=> 'addConso.html.php',
             'title'=>'ajout de consommation pour '.$cpt->getNumero(),
@@ -57,8 +58,26 @@ class Consommation extends Numero {
         $consommation->setCumul($consommations['newi']);
         $this->em->persist($consommation);
         $this->em->flush();
-        header('location: /compteur/consommation?id='.$compteur->getNumero());
-        } else header('location: /consommation/add?id='.$compteur->getNumero());
+        header('location: /compteur/consommation/'.$compteur->getNumero());
+        } else header('location: /consommation/add/'.$compteur->getNumero());
 
+    }
+    public function showTaux (){
+        $taux = $this->em->find('Numero','pri')->getNumero();
+        return [
+            'template' => 'taux.html.php',
+            'title' => 'changer prix litre d\'eau',
+            'variables'=>[
+                'taux'=>$taux
+            ]
+        ];
+    }
+    public function submitTaux(){
+        extract($_POST);
+        echo $taux;
+        $prix = $this->em->find('Numero','pri');
+        $prix->setNumero($taux);
+        $this->em->flush();
+        header('location: /home/dashboard');
     }
 }

@@ -66,6 +66,7 @@ class Pdf extends Fpdi
         $this->Cell(190, 10, "Compteur Numero " . $compt->getNumero(), 0, 0);
         $this->Ln();
         $totalpaye = 0;
+        
         $listCons = $compt->getConsommations();
         if (count($listCons) > 1) {
             $this->Cell(190, 10, "Liste des consommations :", 0, 0);
@@ -115,7 +116,8 @@ class Pdf extends Fpdi
         $str = $str->Conversion($totalpaye + 1 - 1);
         $this->Cell(190, 10, "$str Francs CFA ", 0, 0, "R");
         $this->Ln();
-        $this->Cell(190, 45, "", 0, 0);
+        
+        $this->Cell(190, 35, "", 0, 0);
         $this->Ln();
         // $this->setFont('Amaranth', 'B', '10');
         // $this->setFontSpacing(1);
@@ -147,13 +149,27 @@ class Pdf extends Fpdi
         $this->Cell(55, 5, "Reglement N* ".$reglement->getNumero() , 0, 0, 'C');
         $this->Ln(20);
         $sommes = 0;
+        $coupure = 0;
+        $dateR = $reglement->getDateReglement();
         $factures = $reglement->getFactures();
         foreach ($factures as $facture) {
+            $per = $facture->getConsommation()->getPeriode();
+            $date = new \DateTime('20' . substr($per, 2, 2) . "-" . substr($per, 0, 2) . "-05");
+            $date->add(new \DateInterval('P1M'));
             $this->Cell(55, 5, $facture->getNumero()." : ".$facture->getMontantFacture()." Frs", 0, 0);
-            $sommes +=$facture->getMontantFacture();
+            if($dateR > $date)
+            {
+                $sommes += ($facture->getMontantFacture()+$facture->getMontantFacture()*0.05);
+                $coupure = $facture->getMontantFacture()*0.05;
+            }
+            else $sommes += $facture->getMontantFacture();
             $this->Ln();
         }
         $this->Cell(55, 5,"Total : ".$sommes ." Frs", 0, 0,"R");
+        $this->Ln();
+        if($coupure > 0){
+        $this->Cell(55, 5,"Bon de coupure : ".$sommes ." Frs", 0, 0,"R");
+        }
         $str = new ChiffreEnLettres();
         $this->setFont('notese', 'R', '6');
         $this->setFontSpacing(-0.1);

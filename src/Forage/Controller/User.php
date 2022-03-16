@@ -22,7 +22,7 @@ class User
             $user->setPrenom($prenom);
             $user->setEmail($email);
             $user->setRole($this->em->find('Role', $role));
-            $user->setEtat(1);
+            // $user->setEtat(1);
             $user->setPassword('passer123');
             $user->setExtension($extension);
             $this->em->persist($user);

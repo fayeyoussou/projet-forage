@@ -12,6 +12,7 @@ class Facture extends Numero
     public function __construct($em, $user)
     {
         parent::__construct($em, $user);
+        $this->updateCompteur();
     }
 
     public function generateFacture()
@@ -59,9 +60,7 @@ class Facture extends Numero
             ]
         ];
     }
-    private function updateCompteur()
-    {
-    }
+   
     public function reglementSummary()
     {
         extract($_POST);

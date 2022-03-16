@@ -10,6 +10,7 @@
         <ul class="widget widget-menu unstyled">
             <li><a href="/compteur/list"><i class="fas fa-cogs"></i> List compteur</a></li>
             <li><a href="/reglement/manage"><i class="fas fa-tint"></i> Faire reglement</a></li>
+            <li><a href="/consommation/taux"><i class="fas fa-tint"></i> Prix Litre d'eau</a></li>
         </ul>
         <!--/.widget-nav-->
         <ul class="widget widget-menu unstyled">

@@ -3,7 +3,7 @@
         <div class="module">
             <div class="module-head">
                 <h3>Gestion consommations :</h3>
-                <?= $toAdd ? '<h3>Consommation a enregistrer cliquez <a href="/consommation/add?id=' . $compteur->getNumero() . '">ici</a> pour enregistrer la consommation pour ce mois</h3>' : '' ?>
+                <?= $toAdd ? '<h3>Consommation a enregistrer cliquez <a href="/consommation/add/' . $compteur->getNumero() . '">ici</a> pour enregistrer la consommation pour ce mois</h3>' : '' ?>
             </div>
 
             <div class="module-body table">

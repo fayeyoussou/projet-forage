@@ -242,6 +242,19 @@ class ForageRoutes implements \Youtech\Routes
                 'login' => true,
                 'user' => ['Gestionnaire Compteur']
             ],
+            'consommation/taux' =>
+            [
+                'GET'=>
+                [
+                    'controller'=> $consommationController,
+                    'action'=> 'showTaux'
+                ],
+                'POST'=>[
+                    'controller'=>$consommationController,
+                    'action'=> 'submitTaux'
+                ]
+            ]
+            ,
             'compteur/consommation' =>
             [
                 'GET' => [

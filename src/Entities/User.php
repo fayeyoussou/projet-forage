@@ -44,7 +44,7 @@ class User {
     */
     private $extension;
     public function __construct () {
-
+        $this->etat = 1;
     }
     public function getId () {
         return $this->id;
