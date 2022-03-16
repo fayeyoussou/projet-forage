@@ -60,7 +60,11 @@ class EntryPoint
                 !$authentication->isLoggedIn() 
             ) header('location: /login/error');
             else header('location: /permission/error');
-        } else {
+        } else if($authentication->isLoggedIn() && $this->route != 'user/password' && $this->route != 'user/logout' && password_verify('passer123',$authentication->getUser()->getPassword())){
+            header('location: /user/password/'.$authentication->getUser()->getId());
+        }
+        
+        else {
         $controller = $routes[$this->route][$this->method]['controller'];
         $action = $routes[$this->route][$this->method]['action'];
         $page = $controller->$action($this->id);

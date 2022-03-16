@@ -1,9 +1,14 @@
 <?php
 
 namespace src\Forage\Controller;
-
+    
+    
+use Symfony\Component\Mailer\Transport;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mime\Email;
 class User
 {
+    
     public function __construct($authentication, $em)
     {
         $this->authentication =  $authentication;
@@ -22,9 +27,11 @@ class User
             $user->setExtension($extension);
             $this->em->persist($user);
             $this->em->flush();
+
             return $user->getId();
-        } catch (\Exception $e) {
-            return $e;
+
+        } catch (\Throwable $e) {
+            // return $e;
             // return false;
         }
     }
@@ -66,6 +73,7 @@ class User
         } else return [
             'template' => 'permissionerror.html.php'
         ];
+
     }
     public function userSubmit()
     {
@@ -79,7 +87,7 @@ class User
             $usert = $this->addUser($user['nom'], $user['prenom'], $user['email'], $user['role'], $typeext[1]);
             $target = "resources/userimage/user-" . $usert . "." . $typeext[1];
             $typeext[0] == 'image' ? move_uploaded_file($_FILES['user']['tmp_name']['image'], $target) : "";
-            // header('location: /user/list');
+            
 
         } else {
             $usert = $this->setUser($user);
