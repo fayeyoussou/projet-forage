@@ -60,13 +60,13 @@ class Abonnement extends Numero
         }
         header('location: /abonnement/list');
     }
-    public function list()
+    public function list($id)
     {
         try {
             //code...
         
         $role = '';
-        extract($_GET);
+        // extract($_GET);
         if($this->user->getRole()->getNom()==='Gestionnaire Compteur') {
             $compeurNA = $this->em->createQuery("
             SELECT u
@@ -76,7 +76,7 @@ class Abonnement extends Numero
             ")->getResult();
             $role = 'gcpt';
         }
-        $abonnements = isset($_GET['id']) ?
+        $abonnements = isset($id) ?
             $this->em->getRepository('Abonnement')->findBy(array('etat' => 1, 'habitant' => $this->em->find('Habitant', $id))) :
             $this->em->getRepository('Abonnement')->findBy(array('etat' => 1,));
         return [

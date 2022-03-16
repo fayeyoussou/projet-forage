@@ -9,7 +9,7 @@ class User
         $this->authentication =  $authentication;
         $this->em = $em;
     }
-    public function addUser($nom, $prenom, $email, $role, $password, $extension, $etat = 1)
+    public function addUser($nom, $prenom, $email, $role, $extension, $etat = 1)
     {
         try {
             $user = new \User();
@@ -18,7 +18,7 @@ class User
             $user->setEmail($email);
             $user->setRole($this->em->find('Role', $role));
             $user->setEtat(1);
-            $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
+            $user->setPassword('passer123');
             $user->setExtension($extension);
             $this->em->persist($user);
             $this->em->flush();
@@ -76,7 +76,7 @@ class User
 
 
         if ($user['etat'] == 0) {
-            $usert = $this->addUser($user['nom'], $user['prenom'], $user['email'], $user['role'], $user['password'], $typeext[1]);
+            $usert = $this->addUser($user['nom'], $user['prenom'], $user['email'], $user['role'], $typeext[1]);
             $target = "resources/userimage/user-" . $usert . "." . $typeext[1];
             $typeext[0] == 'image' ? move_uploaded_file($_FILES['user']['tmp_name']['image'], $target) : "";
             // header('location: /user/list');
@@ -169,7 +169,7 @@ class User
             } else if(isset($password['id'])) {
                 $user = $this->em->find('User',$password['id']);
             }
-            $user->setPassword(password_hash($password['new'],PASSWORD_DEFAULT));
+            $user->setPassword($password['new']);
             $this->em->flush();
         }else {
             

@@ -27,7 +27,7 @@
                                     <td><?= $client->getAdresse()?></td>
                                     <td><?= $client->getVillage()->getNom()?></td>
                                     <td><?= $client->getUser()->getPrenom() . " " . $client->getUser()->getNom() ?></td>
-                                    <td class="center"><a href="/client/manage?id=<?= $client->getId() ?>">Modifier</a>&emsp;&emsp;<a href="/abonnement/list?id=<?= $client->getId() ?>">Abonnement</a>&emsp;&emsp;<input type="checkbox" name="clients[]" value="<?= $client->getId() ?>"></td>
+                                    <td class="center"><a href="/client/manage/<?= $client->getId() ?>">Modifier</a>&emsp;&emsp;<a href="/abonnement/list/<?= $client->getId() ?>">Abonnement</a>&emsp;&emsp;<input type="checkbox" name="clients[]" value="<?= $client->getId() ?>"></td>
                                 </tr>
                             <?php } ?>
 

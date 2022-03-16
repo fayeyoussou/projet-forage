@@ -11,7 +11,7 @@ class Client
         $this->em = $em;
         $this->user = $user;
     }
-    public function creerClient()
+    public function creerClient($id)
     {
         $villages =  $this->em->createQuery('
         SELECT v
@@ -25,7 +25,7 @@ class Client
                 'villages' => $villages
             ]
         ];
-        if (isset($_GET['id'])) $toreturn['variables']['client'] = $this->em->find('Habitant', $_GET['id']);
+        if (isset($id)) $toreturn['variables']['client'] = $this->em->find('Habitant', $id);
         return $toreturn;
     }
     public function clientSubmit()
