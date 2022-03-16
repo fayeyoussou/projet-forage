@@ -36,7 +36,7 @@
                                 <img src="/resources/userimage/user-<?=$log->getId().'.'.$log->getExtension()?>" class="nav-avatar" />
                                 <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/user/manage?id=<?=$log->getId()?>">Edit Profile</a></li>
+                                <li><a href="/user/manage/<?=$log->getId()?>">Edit Profile</a></li>
                                 <li class="divider"></li>
                                 <li><a href="/user/logout">Logout</a></li>
                             </ul>

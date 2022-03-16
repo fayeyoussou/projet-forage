@@ -27,7 +27,7 @@
                                     <td><?= $abo->getHabitant()->getNom()?></td>
                                     <td><?= $abo->getDateAbo()->format('d F Y')?></td>
                                     <td><?= $abo->getDescription() ?></td>
-                                    <td class="center"><?php if($role==='') { ?><a href="/abonnement/manage?id=<?= $abo->getNumero() ?>">Modifier</a>&emsp;&emsp;<input type="checkbox" name="abonnements[]" value="<?= $abo->getNumero() ?>"><?php } else if ($abo->getAttribution()===NULL){ ?>
+                                    <td class="center"><?php if($role==='') { ?><a href="/abonnement/manage/<?= $abo->getNumero() ?>">Modifier</a>&emsp;&emsp;<input type="checkbox" name="abonnements[]" value="<?= $abo->getNumero() ?>"><?php } else if ($abo->getAttribution()===NULL){ ?>
                                         
                                         <select class="span2" name="attributions[<?=$abo->getNumero()?>]">
                                         <option value="nothing">Ne rien Faire</option>

@@ -81,8 +81,21 @@ class ForageRoutes implements \Youtech\Routes
                     'action' => 'userSubmit'
                 ],
                 'login' => true,
-                'user' => ['Admin']
+                
+            ]
+            ,
+            'user/password'=>
+            [
+                'GET'=> [
+                    'controller'=>$userController,
+                    'action'=> 'changePassword'
+                ],
+                'POST'=>[
+                    'controller'=>$userController,
+                    'action'=> 'submitChangePassword'
+                ]
             ],
+            
             'user/list' =>
             [
                 'GET' => [

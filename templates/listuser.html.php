@@ -55,7 +55,7 @@
                                                 <input type="checkbox" name="users[]" value="<?= $user->getId() ?>">
                                             </button>
                                             <button class="btn btn-small">
-                                                <a href="/user/manage?id=<?= $user->getId() ?>"><i class="icon-edit"></i> edit</a>
+                                                <a href="/user/manage/<?= $user->getId() ?>"><i class="icon-edit"></i> edit</a>
                                             </button>
                                         </div>
                                     </div>

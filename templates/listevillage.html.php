@@ -29,7 +29,7 @@
                                     <td><?= $village->getChefVillage() !== null ? $village->getChefVillage()->getNom() : "No chef de village" ?></td>
                                     <td><?= $village->nbrHabitant[0][1] ." Habitant"  ?></td>
                                     <td><?= $village->getUser()->getPrenom() . " " . $village->getUser()->getNom() ?></td>
-                                    <td class="center"><a href="/village/manage?id=<?= $village->getId() ?>">Modifier</a>&emsp;&emsp;<input type="checkbox" name="villages[]" value="<?= $village->getId() ?>"></td>
+                                    <td class="center"><a href="/village/manage/<?= $village->getId() ?>">Modifier</a>&emsp;&emsp;<input type="checkbox" name="villages[]" value="<?= $village->getId() ?>"></td>
                                 </tr>
                             <?php } ?>
 

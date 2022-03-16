@@ -7,10 +7,18 @@ class EntryPoint
     private $route;
     private $method;
     private $routes;
+    private $id;
     // private $em;
     public function __construct(string $route, \Youtech\Routes $routes, string $method)
     {
-        $this->route = $route;
+        $res = explode("/",$route);
+        if(count($res) ==3) {
+            $this->id = $res[2];
+            $this->route = $res[0]."/".$res[1];
+        }else {
+            $this->id =null;
+            $this->route = $route;
+        }
         $this->checkUrl();
         $this->routes = $routes;
         $this->method = $method;
@@ -55,7 +63,7 @@ class EntryPoint
         } else {
         $controller = $routes[$this->route][$this->method]['controller'];
         $action = $routes[$this->route][$this->method]['action'];
-        $page = $controller->$action();
+        $page = $controller->$action($this->id);
         $title = $page['title'];
         if (isset($page['variables'])) {
             $output = $this->loadTemplate(

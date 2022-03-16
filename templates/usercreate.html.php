@@ -49,16 +49,10 @@
 			<?php if (isset($user)){?>
 			<div class="control-group">
 				<div class="controls clearfix">
-					<button class="btn btn-primary pull-center btn-link" ><a href="/user/password?id=<?=$user->getId()?>" class="link">Changer mot de passe</a></button>
+					<button class="btn btn-primary pull-center btn-link" ><a href="/user/password/<?=$user->getId()?>" class="link">Changer mot de passe</a></button>
 				</div>
 			</div>
-				<?php } else {?>
-			<div class="control-group">
-				<div class="controls row-fluid">
-					<input class="span12" type="password" placeholder="Password" name="user[password]">
-				</div>
-			</div>
-			<?php } ?>
+				<?php } ?>
 
 		</div>
 		<input type="hidden" value="<?=isset($user)?$user->getId():0?>" name="user[etat]">

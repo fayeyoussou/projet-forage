@@ -8,15 +8,15 @@ class Abonnement extends Numero
     {
         parent::__construct($em,$user);
     }
-    public function createabonnement()
+    public function createabonnement($id)
     {
         $clients =  $this->em->createQuery('
         SELECT v
         FROM Habitant v
         WHERE v.etat = 1
         ')->getResult();
-        if (isset($_GET['id'])) {
-            $abonnement = $this->em->find('Abonnement', $_GET['id']);
+        if (isset($id)) {
+            $abonnement = $this->em->find('Abonnement', $id);
             return [
                 'template' => 'abonnementcreate.html.php',
                 'title' => 'mise a jour d\'abonnement',

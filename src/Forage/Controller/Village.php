@@ -8,7 +8,7 @@ class Village {
         $this->user = $user;
     }
     
-    public function creervillage (){
+    public function creervillage ($id){
         $clients = $this->em->getRepository('Habitant')->findAll();
         $toturn = [
             'template'=> 'villagecreate.html.php',
@@ -17,7 +17,7 @@ class Village {
                 'clients'=> $clients,
             ]
         ];
-        if(isset($_GET['id'])) $toturn['variables']['village'] = $this->em->find('Village',$_GET['id']);
+        if(isset($id)) $toturn['variables']['village'] = $this->em->find('Village',$id);
         return $toturn;
         
     }
