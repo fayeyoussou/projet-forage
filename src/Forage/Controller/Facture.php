@@ -31,7 +31,7 @@ class Facture extends Numero
                     $facture->setUser($this->user);
                     $this->em->persist($facture);
                     $this->em->flush();
-                    header('location: /facture/print?id=' . $facture->getNumero());
+                    header('location: /facture/print/' . $facture->getNumero());
                 }
             }
         } catch (\Exception $e) {
@@ -64,15 +64,18 @@ class Facture extends Numero
     public function reglementSummary()
     {
         extract($_POST);
+        $somme = 0;
         if (count($factures) > 0) {
             for ($i = 0; $i  < count($factures); $i++) {
                 $factures[$i] = $this->em->find('Facture', $factures[$i]);
+                $somme+=$factures[$i]->getMontantFacture();
             }
             return [
                 'template' => 'sommaireReglement.html.php',
                 'title' => 'sommaire reglement',
                 'variables' => [
-                    'factures' => $factures
+                    'factures' => $factures,
+                    'somme'=>$somme
                 ]
             ];
         } else header('location: reglement/manage');
@@ -83,7 +86,7 @@ class Facture extends Numero
         // var_dump($_POST);
         try {
             extract($_POST);
-            // var_dump($factures);
+        //     // var_dump($factures);
             $reglement = new \Reglement();
             $reglement->setUser($this->user);
             $reglement->setNumero($this->generateNumero('Facture'));

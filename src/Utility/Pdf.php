@@ -151,18 +151,19 @@ class Pdf extends Fpdi
         $sommes = 0;
         $coupure = 0;
         $dateR = $reglement->getDateReglement();
+
         $factures = $reglement->getFactures();
         foreach ($factures as $facture) {
             $per = $facture->getConsommation()->getPeriode();
             $date = new \DateTime('20' . substr($per, 2, 2) . "-" . substr($per, 0, 2) . "-05");
             $date->add(new \DateInterval('P1M'));
             $this->Cell(55, 5, $facture->getNumero()." : ".$facture->getMontantFacture()." Frs", 0, 0);
-            if($dateR > $date)
-            {
-                $sommes += ($facture->getMontantFacture()+$facture->getMontantFacture()*0.05);
-                $coupure = $facture->getMontantFacture()*0.05;
-            }
-            else $sommes += $facture->getMontantFacture();
+            
+                $sommes += $facture->getMontantFacture();
+                
+                
+            
+
             $this->Ln();
         }
         $this->Cell(55, 5,"Total : ".$sommes ." Frs", 0, 0,"R");
@@ -170,20 +171,20 @@ class Pdf extends Fpdi
         if($coupure > 0){
         $this->Cell(55, 5,"Bon de coupure : ".$sommes ." Frs", 0, 0,"R");
         }
-        $str = new ChiffreEnLettres();
+        // $str = new ChiffreEnLettres();
         $this->setFont('notese', 'R', '6');
         $this->setFontSpacing(-0.1);
-        try{
+        // try{
 
-            $str = $str->Conversion($sommes + 1 - 1);
-            $this->Ln();
-            $this->Cell(55, 5,$str." Frs", 0, 0,"R");
-        } catch(\Exception $e) {
+        //     $str = $str->Conversion($sommes + 1 - 1);
+        //     $this->Ln();
+        //     $this->Cell(55, 5,$str." Frs", 0, 0,"R");
+        // } catch(\Exception $e) {
 
-        } finally {
+       
 
             $this->output();
-        }
+        
 
     }
 }

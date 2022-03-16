@@ -40,7 +40,10 @@ use DateTime;
             if($now > $date){
                 $facture->getConsommation()->getCompteur()->setEtat('Coupe');
                 $this->em->flush();
-            } 
+            } else {
+                $facture->getConsommation()->getCompteur()->setEtat('Ouvert');
+                $this->em->flush();
+            }
         }  else {
             // echo $facture->getReglement()->getNumero();
         } 

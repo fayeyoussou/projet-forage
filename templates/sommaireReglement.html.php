@@ -24,7 +24,7 @@
                         <div class="control-group">
                             <label class="control-label" for="basicinput">Sommes Total</label>
                             <div class="controls">
-                                <input type="text" id="basicinput" placeholder="You can't type something here..." class="span8" disabled>
+                                <input type="text" id="basicinput" placeholder="<?=$somme?>" class="span8" disabled>
                             </div>
                         </div>
                         <div class="control-group">
