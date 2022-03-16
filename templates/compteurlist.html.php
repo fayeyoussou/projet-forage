@@ -27,7 +27,7 @@
                                     <td><?= $cpt->getInfo()?></td>
                                     <td><?= $cpt->getLastCumul()?></td>
                                     <td><?= $cpt->getEtat() ?></td>
-                                    <td class="center"><?=$roles!=''?'<a href="/compteur/consommation?id='.$cpt->getNumero().'">Consommation</a>'     :     '<input type="checkbox" name="compteurs[]" value="'.$cpt->getNumero().'">'?>   </td>
+                                    <td class="center"><?=$roles!=''?'<a href="/compteur/consommation/'.$cpt->getNumero().'">Consommation</a>'     :     '<input type="checkbox" name="compteurs[]" value="'.$cpt->getNumero().'">'?>   </td>
                                 </tr>
                             <?php } ?>
 

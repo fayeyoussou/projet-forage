@@ -68,8 +68,6 @@ class ForageRoutes implements \Youtech\Routes
                     'action' => 'loginError'
                 ]
             ],
-
-
             'user/manage' =>
             [
                 'GET' => [
@@ -82,8 +80,7 @@ class ForageRoutes implements \Youtech\Routes
                 ],
                 'login' => true,
                 
-            ]
-            ,
+            ],
             'user/password'=>
             [
                 'GET'=> [
@@ -95,7 +92,6 @@ class ForageRoutes implements \Youtech\Routes
                     'action'=> 'submitChangePassword'
                 ]
             ],
-            
             'user/list' =>
             [
                 'GET' => [

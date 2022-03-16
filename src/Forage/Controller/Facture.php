@@ -38,11 +38,11 @@ class Facture extends Numero
         }
         // header('location: /facture/list');
     }
-    public function printFacture()
+    public function printFacture($id)
     {
-        if (isset($_GET['id'])) {
+        if (isset($id)) {
 
-            $facture = $this->em->find('Facture', $_GET['id']);
+            $facture = $this->em->find('Facture', $id);
             $pdf = new \src\Utility\Pdf('p', 'mm', 'A4', true, 'UTF-8', false);
             $pdf->docType = "A4";
             $pdf->showFacture($facture, $this->user);

@@ -8,7 +8,7 @@ class Consommation extends Numero {
     {
         parent::__construct($em,$user);
     }
-    public function toList(){
+    public function toList($id){
         // try{
         // $compteur = $this->em->find('Compteur',$_GET['id']);
         //     $cons = $this->em->getRepository('Consommation')->findOneBy(array('compteur'=>$compteur));
@@ -17,7 +17,7 @@ class Consommation extends Numero {
         // } catch (\Exception $e) {
         //     echo $e;
         // }
-        $compteur = $this->em->find('Compteur',$_GET['id']);
+        $compteur = $this->em->find('Compteur',$id);
         $periode = (new \DateTime())->format('my');
         // echo "Periode en cours :".$periode;
         $cons = $this->em->getRepository('Consommation')->findBy(array('periode'=>$periode,'compteur'=>$compteur));
