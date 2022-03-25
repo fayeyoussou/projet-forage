@@ -18,7 +18,8 @@ try {
      * Commence a charger a partir du premier / et se termine a 
      * la fin ou stoppe au premier point d'interrogation
      */
-
+    $pro = $entityManager->find('Promo',1);
+    
     $route = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
     // echo password_hash('passer123',PASSWORD_DEFAULT);
     $entryPoint = new \Youtech\entryPoint($route,new \src\Forage\ForageRoutes($entityManager),$_SERVER['REQUEST_METHOD']);
